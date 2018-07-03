@@ -1,0 +1,242 @@
+
+    <style>
+        .user-icon-nav{
+            color:white;
+        }
+        .w3-dropdown-hover:first-child, .w3-dropdown-click:hover{
+            background-color: transparent;
+        }
+        .w3-bar-block .w3-bar-item{
+            text-decoration: none;
+        }
+        .navbar-custom .navbar-nav li a {
+            color: white;
+        }
+        .navbar-custom .navbar-nav li a:hover {
+            color: teal;
+        }
+        .w3-dropdown-content{
+            margin-left: -70px;
+            min-width: 110px;
+            text-transform: capitalize;
+        }
+
+        @media (max-width: 768px){
+            .w3-dropdown-hover:first-child, .w3-dropdown-click:hover{
+                display: none;
+            }
+        }
+        @media (min-width: 768px){
+            #current-user{
+                display: none;
+            }
+        }
+        .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover{
+            outline: none;
+        }
+
+        .navbar-nav li a{
+            font-family: "Futura Light";
+        }
+        .page-scroll{
+            font-size: 20px;
+            font-family: sans-serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            transition-duration: 0.5s;
+            transition-delay: 0s;
+            transition-property: margin;
+        }
+        .navbar-brand{
+            font-size: 30px;
+            letter-spacing: 2px;
+            height: 0   ;
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            transition-delay: 0s;
+            padding-top: 35px;
+            transition-property: padding,font-size;
+            transition-duration: 0.5s;
+        }
+        @media (max-width:767px) {
+            .navbar-brand{padding-top: 20px;margin-left: 2%}
+        }
+        .navbar-brand:hover{color: white}
+        .user-nav{
+            margin: 0;
+            padding: 20px 0 0 15px;
+            transition-property: padding;
+            transition-duration: 0.5s;
+            transition-delay: 0s;
+        }
+        .log-in-sign-up a{
+            text-decoration: none;
+            color: white!important;
+            font-size: 20px;
+            padding: 15px;
+        }
+        .log-in-sign-up a:hover{background-color: whitesmoke;color: teal!important;}
+        .log-in-sign-up a:hover{color: white}
+        .log-in-sign-up{
+
+            padding: 15px 0;
+            margin-top: 15px;
+            transition-property: margin;
+            transition-duration: 0.5s;
+            transition-delay: 0s;
+        }
+        @media (min-width: 989px) {
+            .contact-nav-link{
+                display: block!important;
+            }
+        }
+        @media(max-width: 767px){
+.navbar-brand{margin-left: 4%;}
+}
+    </style>
+
+<nav id="mainNav" class="navbar navbar-fixed-top navbar-custom navbar"
+     style="color: whitesmoke;background-color: rgba(44,62,80,0.9);box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2)">
+    <div class="container">
+        <div class="navbar-header ">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" style="margin-right: 10%;">
+                <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
+            </button>
+            <%if (currentUser) { %>
+                <div class="w3-dropdown-hover" id="current-user" style="float: right">
+                    <% let gender = currentUser.gender;let photo=currentUser.photo; %>
+
+                    <% if(photo === "null"){ %>
+                    <% if(gender==='male'){ %>
+                    <span><a  class="user-icon-nav"><img src="/static/images/usericonmale.png"> </a></span>
+                    <% } else { %>
+                    <span><a  class="user-icon-nav"><img src="/static/images/usericonfemale.png"> </a></span>
+                    <%}}else{%>
+                    <span><a  class="user-icon-nav"><img src="<%= photo %>" class="lazy img img-responsive img-centered img-circle" style="width: 50px;height: 50px;"> </a></span>
+
+                    <% } %>
+                    <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-zoom">
+                        <a href="/logout" class="w3-bar-item w3-button" data-ripple="#002040"><strong>logout</strong></a>
+                        <a href="/userprofile" class="w3-bar-item w3-button" data-ripple="#002040"><strong>Profile</strong></a>
+                    </div>
+                </div>
+            <% }%>
+            <a class="navbar-brand" href="/home">ABACUS</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hidden">
+                    <a href="#page-top" data-ripple="#002040"></a>
+                </li>
+                <li class="page-scroll">
+                    <a href="/home" data-ripple="#002040">Home</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="/gallery" data-ripple="#002040">Gallery</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="/events" data-ripple="#002040">Events</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="/Certificate" data-ripple="#002040">Certificate</a>
+                </li>
+                <li class="page-scroll contact-nav-link" style="display: none">
+                    <a href="/contact" data-ripple="#002040">Contact</a>
+                </li>
+
+                <%if (currentUser) { %>
+                <li>
+                    <div class="w3-dropdown-hover user-nav">
+                        <% let gender = currentUser.gender;let photo=currentUser.photo; %>
+
+                        <% if(photo === "null"){ %>
+                        <% if(gender==='male'){ %>
+                        <span><a  class="user-icon-nav"><img src="/static/images/usericonmale.png"> </a></span>
+                        <% } else { %>
+                        <span><a  class="user-icon-nav"><img src="/static/images/usericonfemale.png"> </a></span>
+                        <%}}else{%>
+
+
+
+
+
+                        <span><a  class="user-icon-nav"><img src="<%= photo %>"  class="lazy img img-responsive img-centered img-circle" style="width: 50px;height: 50px;"> </a></span>
+
+                        <% } %>
+                        <div class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-zoom">
+                            <a href="/logout" class="w3-bar-item w3-button" data-ripple="#002040" style="color: teal;"><strong>Logout</strong></a>
+                            <a href="/userprofile" class="w3-bar-item w3-button" data-ripple="#002040" style="color: teal;"><strong>Profile</strong></a>
+                        </div>
+                    </div>
+                </li>
+                <% } else {%>
+                <li><div class="log-in-sign-up"><a href="signup" data-ripple="#002040"><span class="glyphicon glyphicon-user"></span> Sign Up</a></div> </li>
+                <li><div class="log-in-sign-up"><a href="login" data-ripple="#002040"><span class="glyphicon glyphicon-log-in"></span> Sign in</a></div></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+ <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+
+    $(document).on("scroll",function(){
+        if($(document).scrollTop()>10)
+        {
+            $( ".page-scroll" ).css({'margin-top':'5px'});
+        }
+        if($(document).scrollTop()>10)
+        {
+            $( ".page-scroll" ).css({'margin-bottom':'5px'});
+        }
+        if($(document).scrollTop()>10)
+        {
+            $( ".navbar-brand" ).css({'padding-top':'20px'});
+        }
+        if($(document).scrollTop()>10)
+        {
+            $( ".navbar-brand" ).css({'font-size':'25px'});
+        }
+        if($(document).scrollTop()>10)
+        {
+            $( ".user-nav" ).css({'padding-top':'5px'});
+        }
+        if($(document).scrollTop()>10)
+        {
+            $( ".log-in-sign-up" ).css({'margin-top':'1px'});
+        }
+
+        if($(document).scrollTop()<50)
+        {
+            $( ".page-scroll" ).css({'margin-top':'20px'});
+        }
+        if($(document).scrollTop()<50)
+        {
+            $( ".page-scroll" ).css({'margin-bottom':'20px'});
+        }
+        if(($(document).scrollTop()<50)&&($(window).width() > 767))
+        {
+            $( ".navbar-brand" ).css({'padding-top':'35px'});
+        }
+        if($(document).scrollTop()<50)
+        {
+            $( ".user-nav" ).css({'padding-top':'20px'});
+        }
+        if($(document).scrollTop()<50)
+        {
+            $( ".navbar-brand" ).css({'font-size':'30px'});
+        }
+        if($(document).scrollTop()<50)
+        {
+            $( ".log-in-sign-up" ).css({'margin-top':'15px'});
+        }
+
+    });
+
+</script>
+    
+
+<script src="/static/scripts/ripple.js"></script>

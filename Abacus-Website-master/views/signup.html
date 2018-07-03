@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <title>ABACUS | Signup</title>
+	<meta name="description" content="Signup now on abacus and explore more.">
+	<meta name="keywords" content="abacus signup,abacus gla signup,gla signup,gla university signup,abacus society signup,abacus computer signup,glams signup">
+    <% include commonHeadElements.html %>
+    <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css">
+	<style>
+@font-face {font-family: "Futura Light";src: url('/static/styles/core/FuturaBT_Light.otf');}html,body,p,button,h1,h2,h3,h4,h5,a {font-family: "Futura Light", "Open Sans", sans-serif;}body{background: #455e6a}#signupbox {margin-top: 10%;margin-bottom: 40%;background: white;padding-bottom: 10%;box-shadow:0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);border-top:10px solid orange;border-radius:3px;}@media only screen and (max-device-width: 480px){#signupbox{margin-top: 30%;}}.panel-heading{color: #204d74;margin-left: 5%;margin-top: 10%;margin-bottom: 4%;}.paragraph{text-align: left;font-size: 18px;color:black;padding-left: 10%;margin-bottom: 1%;}.input{outline: none;border:none;width: 80%;background: transparent;border-bottom: 2px solid #009688;!important;height: 40px;margin-left: 10%;margin-bottom: 2%;}.input:focus{border: none;border-bottom: 2px solid #009688;!important;outline: none;}.dropdown-btn{background-color: #009688;color: white;font-size: 16px;border: none;cursor: pointer;}.dropdownyear{position: relative;display: inline-block;margin-left: 7%;}.dropdowngender{position: relative;display: inline-block;}.dropdowngender button{padding: 11px 15px 11px 15px;text-align: center;box-shadow: 6px 6px 8px -2px rgba(0,0,0,0.2);}.dropdownyear button{margin-left: 5%;padding: 11px 22px 11px 22px;text-align: center;box-shadow: 7px 4px 8px 0 rgba(0,0,0,0.2);}.dropdown-content {display: none;position: absolute;background-color: #f9f9f9;min-width: 160px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);z-index: 1;}.dropdown-content#gender a {color: black;padding: 12px 16px;text-decoration: none;display: block;}.dropdown-content#year a{color: black;padding: 12px 16px;text-decoration: none;display: block;}.dropdown-content#year a:hover {background-color: #f1f1f1}.dropdown-content#gender a:hover {background-color: #f1f1f1}.dropdowngender:hover .dropdown-content#gender {display: block;}.dropdownyear:hover .dropdown-content#year {display: block;}.dropdown-btn:hover {background-color: #3e8e41;}.check{width:18px;height:18px;position:relative;top:6px;}.check:hover{width:24px;height:24px;position:relative;top:6px;margin: 0}.material{position:relative;color:white;margin: 20px auto;height:400px;width:500px;background:#f45673;}.ripple{overflow:hidden;}.ripple-effect{position: absolute;border-radius: 50%;width: 50px;height: 50px;background: white;animation: ripple-animation 2s;}@keyframes ripple-animation {from {transform: scale(1);opacity: 0.4;}to {transform: scale(100);opacity: 0;}}.btn-submit{border: none;margin-left: 7%;padding: 6px 20px;color: white;background-color: #ff4081;	border-radius:3px;box-shadow:0 5px 5px 0 rgba(0,0,0,0.14), 0 2px 10px 0 rgba(0,0,0,0.12), 0 4px 4px -1px rgba(0,0,0,0.2);}.btn-submit:focus{outline: none;}.btn-submit:hover{animation: mybuttonanim 100s;}@keyframes mybuttonanim {1%{color: #ff4081;background-color: white;box-shadow:0 6px 6px 0 rgba(0,0,0,0.14), 0 2px 20px 0 rgba(0,0,0,0.12), 0 6px 6px -1px rgba(0,0,0,0.2);}}.material_checkbox{position: relative;margin: 25px;}.material_checkbox:focus{outline-color: #fff;}.material_checkbox:before{border: 2px solid #ccc;content: "";cursor: pointer;display: block;height: 15px;position: absolute;-moz-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;width: 15px;z-index: 1;}.material_checkbox:checked:before{border-top-style: none;border-right-style: none;height: 10px;-moz-transform: rotate(-45deg);-ms-transform: rotate(-45deg);-o-transform: rotate(-45deg);-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}.material_checkbox:after{background: #fff;content: "";display: block;height: 15px;position: absolute;top: 0;width: 15px;z-index: 0;}.material_checkbox:nth-child(1):checked:before{border-color:#e51c23;}.material_checkbox:nth-child(3):checked:before{border-color:#e91e63;}.material_checkbox:nth-child(5):checked:before{border-color:#9c27b0;}.material_checkbox:nth-child(7):checked:before{border-color:#673ab7;}.material_checkbox:nth-child(9):checked:before{border-color:#3f51b5;}.material_checkbox:nth-child(11):checked:before{border-color:#5677fc;}.material_checkbox:nth-child(13):checked:before{border-color:#03a9f4;}.material_checkbox:nth-child(15):checked:before{border-color:#00bcd4;}.material_checkbox:nth-child(17):checked:before{border-color:#009688;}.material_checkbox:nth-child(19):checked:before{border-color:#259b24;}.material_checkbox:nth-child(33):checked:before{border-color:#795548;}.material_checkbox:nth-child(35):checked:before{border-color:#9e9e9e;}.material_checkbox:nth-child(37):checked:before{border-color:#607d8b;}.material_checkbox:nth-child(21):checked:before{border-color:#8bc34a;}.material_checkbox:nth-child(23):checked:before{border-color:#cddc39;}.material_checkbox:nth-child(25):checked:before{border-color:#ffeb3b;}.material_checkbox:nth-child(27):checked:before{border-color:#ffc107;}.material_checkbox:nth-child(29):checked:before{border-color:#ff9800;}.material_checkbox:nth-child(31):checked:before{border-color:#ff5722;}.end-line{margin-left: 7%;font-size: medium;}.astric{color: red;}#divCheckPasswordMatch{margin-top: 0;margin-left: 8%;}
+</style>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+<% include navigation_bar.html %>
+<div class="container">
+
+    <div class="row">
+
+        <div id="signupbox" class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 wow slideInUp" data-wow-delay="0.1s">
+            <div class="title">
+                <h1 class="panel-heading"><b>Signup</b></h1>
+            </div>
+            <br>
+            <div class="error-message">
+                <% if(errorMessage) { %>
+                <p class="errorMessage margin-bottom-10 text-center" id="loginError" style="color:red">
+                    <%= errorMessage %>
+                </p>
+                <% } %>
+		
+            </div>
+            <form class="form-horizontal " name="signupform" method="post" action="signup" onsubmit="return validateEmail()" enctype="multipart/form-data">
+                <div class="form-group ">
+                    <p class="paragraph ">Name<span class="astric">*</span></p>
+                    <input spellcheck="false" type="text" class="input" placeholder="Your Name" id="name" data-validate="name" name="name" style="text-transform: capitalize" >
+                </div>
+                <span id="nameValidate" style="color:red;margin-top:0;margin-left:40px;display:none;"></span>
+                <div class="form-group">
+                    <p class="paragraph">Email<span class="astric">*</span></p>
+                    <input spellcheck="false" type="email" class="input" placeholder="abc@gla.ac.in" id="txtEmail"  data-validate="email" name="email" style="text-transform: lowercase">
+                </div>
+
+                <div class="form-group">
+                    <p class="paragraph">Password<span class="astric">*</span></p>
+                    <div class="td">
+                        <input spellcheck="false" type="password" class="input" placeholder="Choose password" id="txtNewPassword" name="password" minlength="8" maxlength="20" onChange="checkPasswordMatch();">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="paragraph">Confirm Password<span class="astric">*</span></p>
+                    <div class="td">
+                        <input spellcheck="false" type="password" class="input" placeholder="Confirm Password" id="txtConfirmPassword" onChange="checkPasswordMatch();">
+                    </div>
+                </div>
+                <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+
+                <div class="form-group">
+                    <p class="paragraph">Mobile No<span class="astric">*</span></p>
+                    <input spellcheck="false" type="number" class="input" placeholder="10 Digit No" id="mobile" data-validate="mobile_no" name="mobile_no" pattern="[1-9]{1}[0-9]{9}" onchange="mobile_no();">
+                </div>
+                <span id="mobile_validate" style="color:red;margin-top:0;margin-left:40px;display:none;"></span>
+                <div class="form-group">
+                    <p class="paragraph">Course</p>
+                    <input spellcheck="false" type="text" class="input" placeholder="Enter Course" id="course" data-validate="course" name="course" style="text-transform: capitalize">
+                </div>
+                <div class="form-group">
+                    <p class="paragraph">Branch</p>
+                    <input spellcheck="false" type="text" class="input" placeholder="Enter Branch" id="branch" data-validate="branch" name="branch" style="text-transform: capitalize">
+                </div>
+                <div class="form-group">
+                    <p class="paragraph">DOB(yyyy-mm-dd)</p>
+                    <input spellcheck="false" type="date" class="input" placeholder="Enter DOB" id="dob" data-validate="dob" name="dob">
+                </div>
+                <div class="dropdownyear">
+                    <!--<button class="dropdown-btn ripple"> Year</button>-->
+                    <p><strong>Select Study Year : </strong></p>
+                    <input type="radio" class="material_checkbox" value="1" name="year">
+                    <label >1</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="2" name="year">
+                    <label>2</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="3" name="year">
+                    <label >3</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="4" name="year">
+                    <label >4</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="0" name="year">
+                    <label>None</label>
+                </div>
+                <div class="dropdowngender">
+                    <p>Gender</p>
+                    <input type="radio" id="male" class="material_checkbox" value="male" name="gender">
+                    <label >Male</label>
+                    <br>
+                    <input  type="radio" id="female" class="material_checkbox" value="female" name="gender">
+                    <label>Female</label>
+                    <br>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <p class="paragraph" style="margin-left: 0">Choose photo</p>
+                    <input type="file" name="images" accept="image/*" style="margin-left: 10%;color: teal">
+                </div>
+                <div class="input-field col s12" style="padding-left: 12px">
+                    <input id="single" type="checkbox" class="material_checkbox filled-in" style="margin-left: 30px;">
+                    <label for="single" style="margin-left: 15px">I accept the abacus <a href="/terms" style="color: teal">terms& Conditions</a></label>
+                </div>
+                <br>
+                
+                <div class="form-group">
+					<div class="g-recaptcha paragraph" data-sitekey="6LdQXVEUAAAAAJVLuk1Nq1Jk0mwEWwQgaXxMuOAJ"></div>
+                </div>
+                <br>
+                <br>
+                <button type="submit"  id="submitBtn" class=" btn-submit " data-ripple="#002040">Create Account <i class="fa fa-paper-plane-o ml-1">  </i></button>
+                <br><br>
+            </form>
+            <p class="end-line">Already have an Account? <a href="/login">Sign in</a> now</p>
+        </div>
+    </div>
+</div>
+<% include commonFooterScriptElements.html %>
+<script src="/node_modules/wow.js/dist/wow.min.js"></script>
+<script>new WOW().init();</script>
+<script type="text/javascript">
+    function validateEmail(email) {
+
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(re.test(email)){
+            if(email.indexOf("@gla.ac.in", email.length - "@gla.ac.in".length) !== -1){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        let x = document.getElementById('mobile');
+        if(x.value.length < 10 || x.value.length > 10){
+            document.getElementById('mobile_validate').style.display="block";
+            document.getElementById('mobile_validate').innerHTML = "Please Enter a Valid mobile number";
+            return false;
+        }
+
+        if (! (document.getElementById('male').checked || document.getElementById('female').checked)) {
+            alert('Please Choose Gender!');
+            return false;
+        }
+        var valueDate = document.getElementById('dob').value;
+        if(!Date.parse(valueDate)){
+            alert('Date of birth is invalid');
+            return false;
+        }
+        if (! document.getElementById('single').checked){
+            alert('You must agree with abacus terms and Conditions');
+            return false;
+        }
+    }
+</script>
+<script>
+    function mobile_no() {
+
+        let x = document.getElementById('mobile');
+        if (x.value.length < 10 || x.value.length > 10) {
+            document.getElementById('mobile_validate').style.display = "block";
+            document.getElementById('mobile_validate').innerHTML = "Please Enter a Valid mobile number";
+        }
+        else {
+            document.getElementById('mobile_validate').style.display = "none";
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function (e){
+        $('#txtEmail,#submitBtn').click(function(){
+            let name = $('#name').val();
+            if ($.trim(name).length === 0) {
+                document.getElementById('nameValidate').innerHTML = "Name can not be null";
+                document.getElementById('nameValidate').style.display = "block";
+                return false;
+            }
+            let re = /([a-zA-Z])/;
+            if(re.test(name)) {
+                document.getElementById('nameValidate').style.display = "none";
+                return true;
+            }
+            else {
+                document.getElementById('nameValidate').innerHTML = "Invalid name";
+                document.getElementById('nameValidate').style.display = "block";
+                return false;
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function (e){
+        $('#txtNewPassword,#txtConfirmPassword,#submitBtn').click(function(){
+            let email = $('#txtEmail').val();
+            if ($.trim(email).length === 0) {
+                alert('Please Enter Valid Email Address');
+                return false;
+            }
+            if (!validateEmail(email)) {
+                alert("please incude official GLA's email address.(ex- abc@gla.ac.in)");
+                return false;
+            }
+        });
+    });
+</script>
+<script>
+    function checkPasswordMatch() {
+        let password = $("#txtNewPassword").val();
+        let confirmPassword = $("#txtConfirmPassword").val();
+
+        if (password !== confirmPassword){
+            $("#divCheckPasswordMatch").html("Passwords do not match!");
+            $("#divCheckPasswordMatch").css('color','red');
+            return false;
+        }
+        else{
+            $("#divCheckPasswordMatch").html("Passwords match.");
+            $("#divCheckPasswordMatch").css('color','teal');
+            return true;
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#txtNewPassword, #txtConfirmPassword").keyup(checkPasswordMatch);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#mobile").keyup(mobile_no);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#name").keyup(validatename);
+    });
+</script>
+</body>
+</html>

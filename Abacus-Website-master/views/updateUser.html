@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <% include commonHeadElements.html %>
+  <style>
+@font-face {font-family: "Futura Light";src: url('/static/styles/core/FuturaBT_Light.otf');}html,body,p,button,h1,h2,h3,h4,h5,a {font-family: "Futura Light", "Open Sans", sans-serif;}body{background: #455e6a}#signupbox {margin-top: 10%;margin-bottom: 40%;background: white;padding-bottom: 10%;box-shadow:0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);border-top:10px solid orange;border-radius:3px;}@media only screen and (max-device-width: 480px){#signupbox{margin-top: 30%;}}.panel-heading{color: #204d74;margin-left: 5%;margin-top: 10%;margin-bottom: 4%;}.paragraph{text-align: left;font-size: 18px;color:black;padding-left: 10%;margin-bottom: 1%;}.input{outline: none;border:none;width: 80%;background: transparent;border-bottom: 2px solid #009688;!important;height: 40px;margin-left: 10%;margin-bottom: 2%;}.input:focus{border: none;border-bottom: 2px solid #009688;!important;outline: none;}.dropdown-btn{background-color: #009688;color: white;font-size: 16px;border: none;cursor: pointer;}.dropdownyear{position: relative;display: inline-block;margin-left: 7%;}.dropdowngender{position: relative;display: inline-block;}.dropdowngender button{padding: 11px 15px 11px 15px;text-align: center;box-shadow: 6px 6px 8px -2px rgba(0,0,0,0.2);}.dropdownyear button{margin-left: 5%;padding: 11px 22px 11px 22px;text-align: center;box-shadow: 7px 4px 8px 0 rgba(0,0,0,0.2);}.dropdown-content {display: none;position: absolute;background-color: #f9f9f9;min-width: 160px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);z-index: 1;}.dropdown-content#gender a {color: black;padding: 12px 16px;text-decoration: none;display: block;}.dropdown-content#year a{color: black;padding: 12px 16px;text-decoration: none;display: block;}.dropdown-content#year a:hover {background-color: #f1f1f1}.dropdown-content#gender a:hover {background-color: #f1f1f1}.dropdowngender:hover .dropdown-content#gender {display: block;}.dropdownyear:hover .dropdown-content#year {display: block;}.dropdown-btn:hover {background-color: #3e8e41;}.check{width:18px;height:18px;position:relative;top:6px;}.check:hover{width:24px;height:24px;position:relative;top:6px;margin: 0}.material{position:relative;color:white;margin: 20px auto;height:400px;width:500px;background:#f45673;}.ripple{overflow:hidden;}.ripple-effect{position: absolute;border-radius: 50%;width: 50px;height: 50px;background: white;animation: ripple-animation 2s;}@keyframes ripple-animation {from {transform: scale(1);opacity: 0.4;}to {transform: scale(100);opacity: 0;}}.btn-submit{border: none;margin-left: 7%;padding: 6px 20px;color: white;background-color: #ff4081;	border-radius:3px;box-shadow:0 5px 5px 0 rgba(0,0,0,0.14), 0 2px 10px 0 rgba(0,0,0,0.12), 0 4px 4px -1px rgba(0,0,0,0.2);}.btn-submit:focus{outline: none;}.btn-submit:hover{animation: mybuttonanim 100s;}@keyframes mybuttonanim {1%{color: #ff4081;background-color: white;box-shadow:0 6px 6px 0 rgba(0,0,0,0.14), 0 2px 20px 0 rgba(0,0,0,0.12), 0 6px 6px -1px rgba(0,0,0,0.2);}}.material_checkbox{position: relative;margin: 25px;}.material_checkbox:focus{outline-color: #fff;}.material_checkbox:before{border: 2px solid #ccc;content: "";cursor: pointer;display: block;height: 15px;position: absolute;-moz-transition: all 0.3s ease-in-out;-o-transition: all 0.3s ease-in-out;-webkit-transition: all 0.3s ease-in-out;transition: all 0.3s ease-in-out;width: 15px;z-index: 1;}.material_checkbox:checked:before{border-top-style: none;border-right-style: none;height: 10px;-moz-transform: rotate(-45deg);-ms-transform: rotate(-45deg);-o-transform: rotate(-45deg);-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}.material_checkbox:after{background: #fff;content: "";display: block;height: 15px;position: absolute;top: 0;width: 15px;z-index: 0;}.material_checkbox:nth-child(1):checked:before{border-color:#e51c23;}.material_checkbox:nth-child(3):checked:before{border-color:#e91e63;}.material_checkbox:nth-child(5):checked:before{border-color:#9c27b0;}.material_checkbox:nth-child(7):checked:before{border-color:#673ab7;}.material_checkbox:nth-child(9):checked:before{border-color:#3f51b5;}.material_checkbox:nth-child(11):checked:before{border-color:#5677fc;}.material_checkbox:nth-child(13):checked:before{border-color:#03a9f4;}.material_checkbox:nth-child(15):checked:before{border-color:#00bcd4;}.material_checkbox:nth-child(17):checked:before{border-color:#009688;}.material_checkbox:nth-child(19):checked:before{border-color:#259b24;}.material_checkbox:nth-child(33):checked:before{border-color:#795548;}.material_checkbox:nth-child(35):checked:before{border-color:#9e9e9e;}.material_checkbox:nth-child(37):checked:before{border-color:#607d8b;}.material_checkbox:nth-child(21):checked:before{border-color:#8bc34a;}.material_checkbox:nth-child(23):checked:before{border-color:#cddc39;}.material_checkbox:nth-child(25):checked:before{border-color:#ffeb3b;}.material_checkbox:nth-child(27):checked:before{border-color:#ffc107;}.material_checkbox:nth-child(29):checked:before{border-color:#ff9800;}.material_checkbox:nth-child(31):checked:before{border-color:#ff5722;}.end-line{margin-left: 7%;font-size: medium;}.astric{color: red;}#divCheckPasswordMatch{margin-top: 0;margin-left: 8%;}
+</style>
+    <title>ABACUS | Update Your Account</title>
+        <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css">
+</head>
+<body>
+<% include navigation_bar.html %>
+<div class="container">
+
+    <div class="row">
+
+        <div id="signupbox" class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 wow slideInUp" data-wow-delay="0.1s">
+            <div class="title">
+                <h1 class="panel-heading"><b>Update Your Details</b></h1>
+            </div>
+            <br>
+            <div class="error-message">
+                <% if(errorMessage) { %>
+                <p class="errorMessage margin-bottom-10 text-center" id="loginError">
+                    <%= errorMessage %>
+                </p>
+                <% } %>
+            </div>
+            <form class="form-horizontal " method="post" action="/updateuser"  enctype="multipart/form-data" onsubmit="return submit()">
+
+                <div class="form-group">
+                    <p class="paragraph">Old Password</p>
+                    <div class="td">
+                        <input spellcheck="false" type="password" class="input" placeholder="Old password" name="oldpassword" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <p class="paragraph">New Password</p>
+                    <div class="td">
+                        <input spellcheck="false" type="password" class="input" placeholder="Choose password" id="txtNewPassword" name="newpassword" onChange="checkPasswordMatch();" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="paragraph">Confirm Password</p>
+                    <div class="td">
+                        <input spellcheck="false" type="password" class="input" placeholder="Confirm Password" id="txtConfirmPassword" onChange="checkPasswordMatch();" required>
+                    </div>
+                </div>
+                <div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+
+                <div class="form-group">
+                    <p class="paragraph">Mobile No</p>
+                    <input spellcheck="false" type="number" class="input" placeholder="10 Digit No" id="mobile" data-validate="mobile_no" name="mobile_no" value="<%= prev[0].mobile_no %>" required>
+                </div>
+
+                <div class="form-group">
+                    <p class="paragraph">Course</p>
+                    <input spellcheck="false" type="text" class="input" placeholder="Select Course" id="course" data-validate="course" name="course" value="<%= prev[0].course %>">
+                </div>
+                <div class="form-group">
+                    <p class="paragraph">Branch</p>
+                    <input spellcheck="false" type="text" class="input" placeholder="Select Branch" id="branch" data-validate="branch" name="branch" value="<%= prev[0].branch %>">
+                </div>
+                <div class="form-group">
+                    <p class="paragraph">DOB(YYYY-MM-DD)</p>
+                    <input spellcheck="false" type="date" class="input" placeholder="Choose DOB" id="dob" data-validate="dob" name="dob" required>
+                </div>
+                <div class="dropdownyear">
+                    <!--<button class="dropdown-btn ripple"> Year</button>-->
+                    <p>Select Study Year</p>
+                    <input type="radio" class="material_checkbox" value="1" name="year">
+                    <label >1</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="2" name="year">
+                    <label>2</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="3" name="year">
+                    <label >3</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="4" name="year">
+                    <label >4</label>
+                    <br>
+                    <input  type="radio" class="material_checkbox" value="0" name="year">
+                    <label>None</label>
+                </div>
+                <div class="dropdowngender">
+                    <p>Gender</p>
+                    <input type="radio" id="male" class="material_checkbox" value="male" name="gender" checked>
+                    <label >Male</label>
+                    <br>
+                    <input type="radio" id="female" class="material_checkbox" value="female" name="gender">
+                    <label>Female</label>
+                    <br>
+                </div>
+                <br>
+                <br>
+                <div class="form-group">
+                    <p class="paragraph" style="margin-left: 0">Choose photo</p>
+                    <input type="file" name="images" accept="image/*" style="margin-left: 10%;color: teal">
+                </div>
+
+
+
+                <br>
+                <button type="submit"  id="submitBtn" class=" btn-submit " data-ripple="#002040">Update Account</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
+</div>
+<% include commonFooterScriptElements.html %>
+<script src="/node_modules/wow.js/dist/wow.min.js"></script>
+<script>new WOW().init();</script>
+
+<script>
+    function submit(){
+        if (! (document.getElementById('male').checked || document.getElementById('female').checked)) {
+            alert('Please Choose Gender!');
+            return false;
+        }
+    }
+    function checkPasswordMatch() {
+        var password = $("#txtNewPassword").val();
+        var confirmPassword = $("#txtConfirmPassword").val();
+
+        if (password != confirmPassword){
+            $("#divCheckPasswordMatch").html("Passwords do not match!");
+            $("#divCheckPasswordMatch").css('color','red');
+        }
+        else{
+            $("#divCheckPasswordMatch").html("Passwords match.");
+            $("#divCheckPasswordMatch").css('color','teal');
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#txtNewPassword, #txtConfirmPassword").keyup(checkPasswordMatch);
+    });
+
+</script>
+</body>
+</html>

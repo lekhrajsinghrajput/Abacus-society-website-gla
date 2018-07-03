@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	  <title>ABACUS </title>
+	<meta name="description" content="Abacus is a computer science society in GLA University.">
+	<meta name="keywords" content="abacus,abacus gla,gla,gla university,abacus society,abacus computer,glauniversity,glams">
+    <% include commonHeadElements.html %>
+  
+   <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css">
+<style>
+
+@font-face {font-family: "Futura Light";src: url('/static/styles/core/FuturaBT_Light.otf');}html,body {width: 100%;height: 100%;font-family: "Futura Light", "Open Sans", sans-serif;}.w3-card-4:hover{ box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);   }.text-vertical-center {display: table-cell;text-align: center;vertical-align: middle;}.text-vertical-center p {margin: 0;padding: 0;font-size: 30px;}.header {display: table;position: relative;width: 100%;height: 100%;background: #26A69A no-repeat center center scroll;-webkit-background-size: cover;-moz-background-size: cover;background-size: cover;-o-background-size: cover;}.demo a {position: absolute;bottom: 20px;left: 50%;z-index: 2;display: inline-block;-webkit-transform: translate(0, -50%);transform: translate(0, -50%);color: #fff;font : normal 400 20px/1 'Zilla Slab', serif;letter-spacing: .1em;text-decoration: none;transition: opacity .3s;}.demo a:hover {opacity: .5;}#section03 a {padding-top: 5%;cursor: pointer;}#section03 a span {position: absolute;top: 0;left: 50%;width: 46px;height: 46px;margin-left: -23px;border: 1px solid #fff;border-radius: 100%;box-sizing: border-box;}#section03 a span::after {position: absolute;top: 50%;left: 50%;content: '';width: 16px;height: 16px;margin: -12px 0 0 -8px;border-left: 1px solid #fff;border-bottom: 1px solid #fff;-webkit-transform: rotate(-45deg);transform: rotate(-45deg);box-sizing: border-box;}#section03 a span::before {position: absolute;top: 0;left: 0;z-index: -1;content: '';width: 44px;height: 44px;box-shadow: 0 0 0 0 rgba(00,83,8,.1);border-radius: 100%;opacity: 0;-webkit-animation: sdb03 3s infinite;animation: sdb03 3s infinite;box-sizing: border-box;}@-webkit-keyframes sdb03 {0% {opacity: 0;}30% {opacity: 1;}60% {box-shadow: 0 0 0 60px rgba(255,255,255,.1);opacity: 0;}100% {opacity: 0;}}@keyframes sdb03 {0% {opacity: 0;}30% {opacity: 1;}60% {box-shadow: 0 0 0 60px rgba(255,255,255,.1);opacity: 0;}100% {opacity: 0;}}.headings{font-size: 40px;margin-top: 2%;}.clubcard{min-height: 160px;}.clubcard1 img{min-height: 220px;max-height: 220px;}.club-heading1{font-size: 30px;}.clubcard2 img{min-height: 290px;max-height: 290px;}.club-br{display: none;}@media (max-width: 768px){.club-br{display: block;}}.member-comment{font-size: 20px;}.members{margin-top: 20px;}.member-image{max-width:180px;min-width: 180px;max-height: 180px;min-height: 180px;margin-top: 20px;}.member-column-bottom{margin-top: 10px;}.member-name{text-align: center;font-size: 20px;}.member-position{text-align: center;font-size: 18px;}.member-social-icons{font-size: 35px;text-align: center;}.icon-ul-class li{display: inline;color: teal;}@media (max-width: 991px) {#a4a-heading{margin-top: 3%}#a4abotton{margin-top: 4%}}.clubbutton{margin-bottom: 10px;color: white;background-color:#FF4081;/* #f44336;*/padding: 6px 20px;border: none;border-radius:3px;box-shadow:0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)}.clubbutton:hover{animation: clubbuttonanimation 60s;}.clubbutton:focus{outline: none}@keyframes clubbuttonanimation {0.2%{box-shadow:4px 4px 8px 0 rgba(0,0,0,0.1);}0.4%{box-shadow:4px 4px 10px 0 rgba(0,0,0,0.1);}0.6%{box-shadow:5px 5px 10px 0 rgba(0,0,0,0.1);}0.8%{box-shadow:5px 5px 13px 0 rgba(0,0,0,0.1);}1%{box-shadow:5px 5px 13px 1px rgba(0,0,0,0.1);}1.5%{box-shadow:5px 5px 16px 2px rgba(0,0,0,0.2);}2%{box-shadow:5px 5px 20px 3px rgba(0,0,0,0.2);}2.1%{background: none;background-color: #fff;color: #FF4081;}}.card1{box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);transition: box-shadow 0.2s  ease-in-out;}.card1:hover{box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);}@media(max-width: 767px){::-webkit-scrollbar { display: none; }}@media(max-width: 577px){#section03 a span {top: -50px!important;}.card1{margin-top: 15px;}}.br-hide-scroll{	display:none;}
+
+</style>
+
+</head>
+<% include navigation_bar.html %>
+<% if(contactSubmittedMessage){ %>
+<span class="contactSubmittedMessage"></span>
+<% } %>
+<% if(errorContactToAdmin){ %>
+<span class="errorContactToAdmin"></span>
+<% } %>
+
+<header id="top" class="header w3-animate-opacity">
+    <div class="text-vertical-center">
+        <div class="row">
+            <div class="col-md-3 col-sm-3"></div>
+            <div class="col-md-6 col-sm-6">
+                <div class="row">
+                    <div class="col-sm-1 col-md-1 col-xs-1 col-xm-1"></div>
+                    <div class="col-sm-10 col-md-10 col-xs-10 col-xm-10">
+                        <img class="img img-responsive lazy" src="/static/images/abacus_logo_modified.jpg">
+                    </div>
+                    <div class="col-sm-1 col-md-1 col-xs-1 col-xm-1"></div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-3"></div>
+        </div>
+        <p style="color: white;font-size: 30px">A computer society to explore more</p>
+        <br>
+        <div class="span-animation">
+            <section id="section03" class="demo" >
+                <a onclick="myscrollfunction()"><span ></span></a>
+            </section>
+        </div>
+    </div>
+</header>
+
+<body>
+<hr style="color: red;color: white;border: none;" class="toscroll">
+<br class="br-hide-scroll">
+<br class="br-hide-scroll">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="club-heading wow fadeInUp w3-center headings">Our Clubs</p>
+        </div>
+    </div>
+
+
+    <% if(club.length === 5){ %>
+    <div class="row">
+        <% for(let i =0;i<club.length-2;i++){ %>
+
+
+        <div class="col-md-4 col-sm-4">
+            <div class="w3-card-4 clubcard1 wow flipInY" >
+                <img src="<%= club[i].photo %>" alt="" style="width:100%">
+                <div class="w3-container w3-center">
+                    <p class="club-heading1"><b><%= club[i].clubname %></b></p>
+                    <p><%= club[i].description %></p>
+                    <a href="/events?cid=<%= club[i].clubid %>" class="clubbutton-a"><button class="clubbutton" data-ripple="#002040">Explore</button></a>
+                </div>
+            </div>
+        </div>
+        <br class="club-br">
+        <%} %>
+    </div>
+    <br>
+    <div class="row">
+        <% for(let i =club.length-2;i<club.length;i++){ %>
+        <div class="col-md-6 col-sm-6">
+            <div class="w3-card-4 clubcard2 wow flipInY" >
+                <img src="<%= club[i].photo %>" alt="" style="width:100%">
+                <div class="w3-container w3-center">
+                    <p class="club-heading1"><b><%= club[i].clubname %></b></p>
+                    <p><%= club[i].description %></p>
+                    <a href="/events?cid=<%= club[i].clubid %>" class="clubbutton-a"><button class="clubbutton" data-ripple="#002040">Explore</button></a>
+                </div>
+            </div>
+        </div>
+        <br class="club-br">
+        <%} %>
+    </div>
+    <% }%>
+
+    <% if(club.length === 6){ %>
+    <div class="row">
+        <% for(let i =0;i<6;i++){ %>
+
+
+        <div class="col-md-4 col-sm-4" style="margin-top:2%">
+            <div class="w3-card-4 clubcard1 wow flipInY" >
+                <img src="<%= club[i].photo %>" alt="" style="width:100%">
+                <div class="w3-container w3-center">
+                    <p class="club-heading1"><b><%= club[i].clubname %></b></p>
+                    <p><%= club[i].description %></p>
+                    <a href="/events?cid=<%= club[i].clubid %>" class="clubbutton-a"><button class="clubbutton" data-ripple="#002040">Explore</button></a>
+                </div>
+            </div>
+        </div>
+        <br class="club-br">
+
+        <%} %>
+    </div>
+
+    <% }%>
+
+
+    <% if(club.length === 7){ %>
+    <div class="row">
+        <% for(let i =0;i<4;i++){ %>
+
+
+        <div class="col-md-3 col-sm-3" style="margin-top:2%">
+            <div class="w3-card-4 clubcard1 wow flipInY" >
+                <img src="<%= club[i].photo %>" alt="" style="width:100%">
+                <div class="w3-container w3-center">
+                    <p class="club-heading1"><b><%= club[i].clubname %></b></p>
+                    <p><%= club[i].description %></p>
+                    <a href="/events?cid=<%= club[i].clubid %>" class="clubbutton-a"><button class="clubbutton" data-ripple="#002040">Explore</button></a>
+                </div>
+            </div>
+        </div>
+        <br class="club-br">
+
+        <%} %>
+        <% for(let i =4;i<7;i++){ %>
+
+
+        <div class="col-md-4 col-sm-4" style="margin-top:2%">
+            <div class="w3-card-4 clubcard1 wow flipInY" >
+                <img src="<%= club[i].photo %>" alt="" style="width:100%">
+                <div class="w3-container w3-center">
+                    <p class="club-heading1"><b><%= club[i].clubname %></b></p>
+                    <p><%= club[i].description %></p>
+                    <a href="/events?cid=<%= club[i].clubid %>" class="clubbutton-a"><button class="clubbutton" data-ripple="#002040">Explore</button></a>
+                </div>
+            </div>
+        </div>
+        <br class="club-br">
+
+        <%} %>
+
+    </div>
+
+    <% }%>
+
+    <% if(club.length === 8){ %>
+    <div class="row">
+        <% for(let i =0;i<club.length;i++){ %>
+
+
+        <div class="col-md-3 col-sm-3" style="margin-top:2%">
+            <div class="w3-card-4 clubcard1 wow flipInY" >
+                <img src="<%= club[i].photo %>" alt="" style="width:100%">
+                <div class="w3-container w3-center">
+                    <p class="club-heading1"><b><%= club[i].clubname %></b></p>
+                    <p><%= club[i].description %></p>
+                    <a href="/events?cid=<%= club[i].clubid %>" class="clubbutton-a"><button class="clubbutton" data-ripple="#002040">Explore</button></a>
+                </div>
+            </div>
+        </div>
+        <br class="club-br">
+
+        <%} %>
+    </div>
+
+    <% }%>
+    <% if(club.length === 9){ %>
+    <div class="row">
+        <% for(let i =0;i<9;i++){ %>
+
+
+        <div class="col-md-4 col-sm-4" style="margin-top:2%">
+            <div class="w3-card-4 clubcard1 wow flipInY" >
+                <img src="<%= club[i].photo %>" alt="" style="width:100%">
+                <div class="w3-container w3-center">
+                    <p class="club-heading1"><b><%= club[i].clubname %></b></p>
+                    <p><%= club[i].description %></p>
+                    <a href="/events?cid=<%= club[i].clubid %>" class="clubbutton-a"><button class="clubbutton" data-ripple="#002040">Explore</button></a>
+                </div>
+            </div>
+        </div>
+        <br class="club-br">
+
+        <%} %>
+    </div>
+
+    <% }%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <p class="headings wow fadeInUp w3-center">Our Pillars</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 wow bounceIn">
+            <p class="member-comment w3-center">The best team of the Abacus society....</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="row members">
+            <div class="col-md-3 members-column " data-wow-delay="0.8s">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img data-src="/static/images/hod.jpg" class="img-circle lazy center-block member-image" alt="can't load image">
+                    </div>
+                </div>
+                <div class="row member-column-bottom">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-name"><b>Dr. A.S. Jalal</b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-position" style="color:#263238;">Chairman</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding:0;margin:0">
+                                <ul class="icon-ul-class w3-center" style="padding:0;margin:0">
+                                    <li>
+                                        <a href="#" class="member-social-icons"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </li><li>
+                                    <a href="#" class="member-social-icons" style="padding:0"><i class="fa fa-fw fa-facebook" style="padding:0;margin:0"></i></a>
+                                </li><li>
+                                    <a href="#" class="member-social-icons"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                </li><li>
+                                    <a href="mail://asjalal@gla.ac.in" class="member-social-icons"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 members-column " data-wow-delay="1.2s">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img data-src="/static/images/manojsir.jpg" class="img-circle lazy center-block member-image" alt="can't load image">
+                    </div>
+                </div>
+                <div class="row member-column-bottom">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-name"><b>Dr. Manoj Kumar</b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-position" style="color:#263238;">Vice-Chairman</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding:0;margin:0">
+                                <ul class="icon-ul-class w3-center" style="padding:0;margin:0">
+                                    <li>
+                                        <a href="#" class="member-social-icons"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </li><li>
+                                    <a href="#" class="member-social-icons" style="padding:0"><i class="fa fa-fw fa-facebook" style="padding:0;margin:0"></i></a>
+                                </li><li>
+                                    <a href="#" class="member-social-icons"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                </li><li>
+                                    <a href="mail://manoj.kumar@gla.ac.in" class="member-social-icons"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 members-column" data-wow-delay="1.6s">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img data-src="/static/images/neerajsir.jpg" class="img-circle lazy center-block member-image" alt="can't load image">
+                    </div>
+                </div>
+                <div class="row member-column-bottom">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-name"><b>Mr. Neeraj Vershney</b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-position" style="color:#263238;">Secretary</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding:0;margin:0">
+                                <ul class="icon-ul-class w3-center" style="padding:0;margin:0">
+                                    <li>
+                                        <a href="#" class="member-social-icons"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </li><li>
+                                    <a href="#" class="member-social-icons" style="padding:0"><i class="fa fa-fw fa-facebook" style="padding:0;margin:0"></i></a>
+                                </li><li>
+                                    <a href="#" class="member-social-icons"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                </li><li>
+                                    <a href="mail://neeraj.varshney@gla.ac.in" class="member-social-icons"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 members-column " >
+                <div class="row">
+                    <div class="col-md-12">
+                        <img data-src="/static/images/saurabhsir.jpg" class="img-circle lazy center-block member-image" alt="can't load image">
+                    </div>
+                </div>
+                <div class="row member-column-bottom">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-name"><b>Mr. Saurabh Singhal</b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-position" style="color:#263238;">Treasurer</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding:0;margin:0">
+                                <ul class="icon-ul-class w3-center" style="padding:0;margin:0">
+                                    <li>
+                                        <a href="#" class="member-social-icons"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                    </li><li>
+                                    <a href="#" class="member-social-icons" style="padding:0"><i class="fa fa-fw fa-facebook" style="padding:0;margin:0"></i></a>
+                                </li><li>
+                                    <a href="#" class="member-social-icons"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                </li><li>
+                                    <a href="mail://saurabh.singhal@gla.ac.in" class="member-social-icons"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% if(achieversDetail[3]){ %>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <p class="headings wow fadeInUp w3-center">Achievers</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 wow bounceIn">
+            <p class="member-comment w3-center">The Achievers of Abacus Society...</p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="row members">
+            <% for(let i in achieversDetail) { %>
+            <div class="col-md-3 members-column ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img data-src="<%= achieversDetail[i].photo %>" class="img-circle lazy center-block member-image" alt="can't load image">
+                    </div>
+                </div>
+                <div class="row member-column-bottom">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-name"><b><%= achieversDetail[i].name %></b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="member-position" style="color:#263238;"><%= achieversDetail[i].description %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+    <% } %>
+    <p class="ach wow fadeInUp" style="margin-bottom: 40px; font-size: 40px; text-decoration: none; text-align: center; visibility: visible; margin-top:40px;animation-name: fadeInUp;">ABACUS @ GLANCE</p>
+
+    <div class="row" style="margin-bottom: 50px;">
+            <div class="col-md-3 wow flipInY" style="visibility: visible; animation-name: flipInY;">
+                <div class="card1">
+                    <h1 style="position:absolute; z-index:100; margin-top:29%; margin-left:5%; background: rgba(0, 0, 0, 0.7);color:white">2+</h1>
+
+                    <img class="img-responsive" src="/static/images/abacus@glance.jpg" alt="" style="-webkit-filter: opacity(10%);filter: opacity(30%);">
+
+                    <h2 style="position:absolute; z-index:100; margin-top:-42%; margin-left:5%; background: rgba(0, 0, 0, 0.7);color:white">Trainings</h2>
+                    <div class="container">
+                        <p style="padding-top:5px">Trainings@CEA </p>
+                    </div>
+                </div>
+                <div class="myborder" style="height:5px;border:none;border-bottom: 8px solid #4a148c">
+
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-3 wow flipInY" style="visibility: visible; animation-name: flipInY;">
+                <div class="card1 ">
+                    <h1 style="position:absolute; z-index:100; margin-top:21%; margin-left:5%; background: rgba(0, 0, 0, 0.7);color:white"><%= totalevent[0]['count(eventid)'] %>+</h1>
+
+                    <img class="img-responsive" src="/static/images/abacus@glance.jpg" alt="" style="-webkit-filter: opacity(10%);filter: opacity(30%);">
+
+                    <h2 style="position:absolute; z-index:100; margin-top:-50%; margin-left:5%; background: rgba(0, 0, 0, 0.7);color:white">Events</h2>
+                    <div class="container">
+                        <p style="padding-top:5px">Events@ABACUS</p>
+                    </div>
+                </div>
+                <div class="myborder" style="height:5px;border:none;border-bottom: 8px solid #0d47a1">
+
+                </div>
+            </div>
+
+
+
+            <div class="col-md-3 wow flipInY" style="visibility: visible; animation-name: flipInY;">
+                <div class="card1">
+                    <h1 style="position:absolute; z-index:100; margin-top:32%; margin-left:5%; background: rgba(0, 0, 0, 0.7);color:white"><%= totalparticipation[0]['count(reg_no)'] %>+</h1>
+
+                    <img class="img-responsive" src="/static/images/abacus@glance.jpg" alt="" style="-webkit-filter: opacity(10%);filter: opacity(30%);">
+
+                    <h2 style="position:absolute; z-index:100; margin-top:-50%; margin-left:5%;padding: 0;margin-right: 10%; background: rgba(0, 0, 0, 0.7);color:white">Students Participated</h2>
+                    <div class="container">
+                        <p style="padding-top:5px">Registrations@ABACUS</p>
+                    </div>
+                </div>
+                <div class="myborder" style="height:5px;border:none;border-bottom: 8px solid #004d40">
+
+                </div>
+            </div>
+
+
+            <div class="col-md-3 wow flipInY" style="visibility: visible; animation-name: flipInY;">
+                <div class="card1">
+                    <h1 style="position:absolute; z-index:100; margin-top:24%; margin-left:5%; background: rgba(0, 0, 0, 0.7);color:white"><%= club.length %>+</h1>
+
+                    <img class="img-responsive" src="/static/images/abacus@glance.jpg" alt="" style="-webkit-filter: opacity(10%);filter: opacity(30%);">
+
+                    <h2 style="position:absolute; z-index:100; margin-top:-46%; margin-left:5%; background: rgba(0, 0, 0, 0.7);color:white">Clubs</h2>
+                    <div class="container">
+                        <p style="padding-top:5px">Clubs@CEA</p>
+                    </div>
+                </div>
+                <div class="myborder" style="height:5px;border:none;border-bottom: 8px solid red">
+
+                </div>
+            </div>
+
+        </div>
+</div>
+<% include commonFooterScriptElements.html %>
+<% include footer.html %>
+<script>
+    $("img").addClass("lazy");
+</script>
+<script src="/node_modules/wow.js/dist/wow.min.js"></script>
+
+<script>
+	
+    $(".contactSubmittedMessage").each(function () {
+        alert("<%= contactSubmittedMessage %>");
+    });
+</script>
+<script>
+    $(".errorContactToAdmin").each(function () {
+        alert("<%= errorContactToAdmin %>");
+    });
+</script>
+<script>
+    if ($(window).width() <= 767) {
+
+    }
+</script>
+<script>
+
+    function myscrollfunction() {
+	$('.br-hide-scroll').css('display','block');
+        $('html,body').animate({scrollTop: $('.toscroll').offset().top});
+    }
+</script>
+<script>
+    new WOW().init();
+</script>
+</body>
+</html>

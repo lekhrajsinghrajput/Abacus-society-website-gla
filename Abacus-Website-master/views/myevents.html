@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ABACUS | Dashboard</title>
+    <% include commonHeadElements.html %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <style>
+    @font-face {
+	font-family: "Futura Light";
+	src: url('/static/styles/core/FuturaBT_Light.otf');
+}
+html,body,p,button,h1,h2,h3,h4,h5,a {
+	font-family: "Futura Light", "Open Sans", sans-serif;
+}
+#header{
+
+	background-color: #ccccb3;
+	margin-bottom: 2%;
+	margin-top: 0;
+}
+.btn-default{
+	margin-top: 10%;
+	background-color: #004d40;
+}
+.he{
+	text-align: center;
+}
+.list-group{
+	margin-top: 0%;
+}
+
+.shadow {
+	-moz-box-shadow:    3px 3px 5px 6px #ccc;
+	-webkit-box-shadow: 3px 3px 5px 6px #ccc;
+	box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+.hide { display:none;}
+.show { display:block;}
+
+/*navbar*/
+.navbar{
+
+	margin-bottom: 0;
+	border-radius: 0;
+}
+.navbar .nabvar-inverse{
+	border: 1px solid black;
+}
+
+
+.btn{
+	margin-top: 10%;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+.jumbotron.jmb {
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+    </style>
+</head>
+<body>
+<% if(addMessage) { %>
+<span class="addMessage"></span>
+<%}%>
+<% if(roleVar!="r3"){ %>
+<% if(uploadMediaMessage){ %>
+<span class="uploadMediaMessage"></span>
+<% }} %>
+<% include navigation_bar.html %>
+<% let k; %>
+<header id="header">
+    <div class="container" style="padding-top: 10%;padding-bottom: 4%">
+        <div class="row">
+            <div class="col-md-8">
+                <h1><span class="glyphicon glyphicon-cog" arial-hidden="true"> </span> Dashboard
+
+                    <% if(roleVar === "r1"){ %>
+                    <small>Manage your site</small>
+
+                    <% } else if(roleVar === "r2"){ %>
+                    <small>Manage your events</small>
+
+                    <%} else{ %>
+                    <small>See your events</small>
+                    <%}%>
+
+
+                </h1>
+            </div>
+
+            <% if(roleVar === "r1"){ %>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4">
+                        <button id="myBtn" class="btn btn-default" style="background-color: #009688;color: white">Add Member</button>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <form method="post" action="/achievers">
+                           <button class="btn btn-default" type="submit" style="background-color: #009688;color: white">Add Achiever</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 col-md-4">
+                        <form method="post" action="/club">
+                        <button class="btn btn-default" type="submit" style="background-color: #009688;color: white">Add Club</button>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+            <%}%>
+        </div>
+    </div>
+</header>
+<div id="myModal" class="modal  ">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add a Coordinator Now</h3>
+            <form class="form-horizontal " method="post" action="addcoordinator">
+                <p>Enter Official Email of Person to make Coordinaor:</p>
+                <input spellcheck="false" type="email" placeholder="Enter Email" data-validate="email"
+                       name="email">
+                <button type="submit" class="btn btn-success" style="margin-top: 0;margin-left: 10px; ">Add Coordinator</button>
+            </form>
+            <br><br>
+            <h3> Add a Admin now</h3>
+            <form class="form-horizontal " method="post" action="addadmin">
+                <p>Enter Official Email of Person to make Admin :</p>
+                <input spellcheck="false" type="email" class="input" placeholder="Enter Email" data-validate="email"
+                       name="email">
+                <button type="submit" class="btn btn-success" style="margin-top: 0;margin-left: 10px; ">Add Admin</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group  shadow">
+                <p class="list-group-item active" style="font-size: 20px;background: #009688!important;border: #009688!important;color: white;position: relative;z-index:-500">
+                    Dashboard
+                </p>
+
+                <% if(roleVar === "r1"){ %>
+                <a href="#" class="list-group-item" onclick="register()">Registered Events</a>
+                <a href="#" class="list-group-item" onclick="add()">Add Events </a>
+                <a href="#" class="list-group-item" onclick="hosted()">Hosted Events </a>
+                <a href="#" class="list-group-item" onclick="update()">Update Events </a>
+                <a href="#" class="list-group-item" onclick="request()">Requested events <span
+                        class="badge"><%= totalRequestedEvents[0].totalRequestedEvents %></span></a>
+                <a href="#" class="list-group-item" onclick="coordinator()"> Coordinators</a>
+                <a href="#" class="list-group-item" onclick="upcoming()">Upcoming Events <span
+                        class="badge"><%= totalUpcomingEvents[0].totalUpcomingEvents %></span></a>
+                <a href="#" class="list-group-item" onclick="previous()">Previous Events</a>
+                <a href="#" class="list-group-item" onclick="queries()">Queries</a>
+                <% } else if(roleVar === "r2"){%>
+                <a href="#" class="list-group-item" onclick="register()">Registered Events</a>
+                <a href="#" class="list-group-item" onclick="hosted()">Hosted Events </a>
+                <a href="#" class="list-group-item" onclick="add()">Add Events </a>
+                <a href="#" class="list-group-item" onclick="update()">Update Events </a>
+                <a href="#" class="list-group-item" onclick="queries()">Queries</a>
+                <% } else { %>
+                <a href="#" class="list-group-item" onclick="register()">Registered Events</a>
+                <% } %>
+
+            </div>
+        </div>
+        <% if(roleVar === "r1"){ %>
+        <div class="col-md-9">
+
+            <div class="panel panel-primary" style="">
+                <div class="panel-heading" style="font-size: 20px;background: #009688;color: white">Website overview</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="well">
+                                <h2><span class="glyphicon glyphicon-user" style="margin-right: 10px"></span><%= totalUser[0].totalUser %></h2>
+                                <h4> User</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="well">
+                                <h2><span class="glyphicon glyphicon-list-alt" style="margin-right: 10px;"></span><%=
+                                    totalRequestedEvents[0].totalRequestedEvents %></h2>
+                                <h4> Requested events</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="well">
+                                <h2><span class="glyphicon glyphicon-list-alt" style="margin-right: 10px"></span><%=
+                                    totalUpcomingEvents[0].totalUpcomingEvents %></h2>
+                                <h4>Upcoming Events </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+
+
+
+        <% if(roleVar!="r3"){ %>
+        <div class="col-md-9 hide" id="reg">
+            <% } else { %>
+            <div class="col-md-9" id="reg">
+                <% } %>
+                <div class="he"><h1>Registered Events</h1></div>
+
+                    <div class="hostedevents">
+
+                    <div class="table a">
+                        <table class="table table-responsive">
+                            <thead class="thead-default">
+
+                            <tr>
+                                <th>Event name</th>
+                                <th>venue</th>
+                                <th>Start Date</th>
+                                <th>End Date </th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <table-responsiveody>
+                                <% for(let i in registered_events_list) { %>
+                                <tr>
+                                    <td><%= registered_events_list[i].event_name %></td>
+                                    <td><%= registered_events_list[i].venue %></td>
+                                    <td><%= utils.formatDate(registered_events_list[i].start_date_time) %></td>
+                                    <td><%= utils.formatDate(registered_events_list[i].end_date_time) %></td>
+                                    <td><a style="color: teal" href="/event/<%= registered_events_list[i].eventid %>" ><i class="fa fa-info-circle fa-lg" aria-hidden="true"></i></a></td>
+                                </tr>
+                                <% } %>
+                            </table-responsiveody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <% if(roleVar!="r3"){ %>
+
+            <div class="col-md-9 hide" id="add">
+                <div class="he"><h1>Add Event</h1></div>
+                <form method="post" action="/hostEvent" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="InputName">Event Name( Max 30 characters)<b><span style="color:red">*</span></b></label>
+                        <input type="text" class="form-control" id="InputName"
+                               placeholder="Enter Event Name" name="event_name" data-validate="event_name" style="text-transform: capitalize" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="vanuedetails">Venue<b><span style="color:red">*</span></b></label>
+                        <input type="text" class="form-control" id="vanuedetails" placeholder="enter venue" name="venue"  style="text-transform: capitalize" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="start_date_time">Start Date and Time <b><span style="color:red">*</span></b></label>
+                        <input class="form-control" type="datetime-local" id="start_date_time" placeholder="date and time"
+                               name="start_date_time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end_date_time">End Date and Time <b><span style="color:red">*</span></b></label>
+                        <input type="datetime-local" class="form-control" id="end_date_time" placeholder="date and time"
+                               name="end_date_time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="abprice">Abacus Price<b><span style="color:red">*</span></b></label>
+                        <input class="form-control" type="number" id="abprice" placeholder="abacus price"
+                               name="abacus_price" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nabprice"> Non-Abacus Price<b><span style="color:red">*</span></b></label>
+                        <input class="form-control" type="number" id="nabprice" placeholder="non abacus price"
+                               name="non_abacus_price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nabprice1">Total Seats<b><span style="color:red">*</span></b></label>
+                        <input class="form-control" type="number" id="nabprice1" placeholder="Total Avilable Seats"
+                               name="total_seats" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nabprice1">Add another Coordinator (optional)</label>
+                        <input class="form-control" type="email" id="nabprice1" name="coordinator1"
+                               placeholder="enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nabprice1">Add another Coordinator (optional)</label>
+                        <input class="form-control" type="email" id="nabprice1" name="coordinator2"
+                               placeholder="enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nabprice1">Add another Coordinator (optional)</label>
+                        <input class="form-control" type="email" id="nabprice1" name="coordinator3"
+                               placeholder="enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="nabprice1">Add another Coordinator (optional)</label>
+                        <input class="form-control" type="email" id="nabprice1" name="coordinator4"
+                               placeholder="enter Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="clubselect">Club Name<b><span style="color:red">*</span></b></label>
+                        <select class="form-control" id="clubSelect" title="clubname" name="clubname">
+                            <% for( let i in clubnames){ %>
+                            <option ><%= clubnames[i].clubname %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="photoupload">Event Poster(Jpg or Png Format)<b><span style="color:red">*</span></b></label>
+                        <input id="photoupload" type="file" name="images" multiple="" accept="image/*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <p><b>Choose certificate Templete<b><span style="color:red">*</span></b> :</b></p>
+                        <input type="radio" name="certificateTemplate" value="1" checked><a href="/static/pdf/1.pdf" target="_blank"> Templete 1</a><br>
+                        <input type="radio" name="certificateTemplate" value="2" ><a href="/static/pdf/2.pdf" target="_blank"> Templete 2</a><br>
+                        <input type="radio" name="certificateTemplate" value="3" ><a href="/static/pdf/3.pdf" target="_blank"> Templete 3</a><br>
+                        <input type="radio" name="certificateTemplate" value="4" ><a href="/static/pdf/4.pdf" target="_blank"> Templete 4</a><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descriptionArea">Description (max. 4000 letters )<b><span style="color:red">*</span></b></label>
+                        <textarea class="form-control" id="descriptionArea" rows="3" name="description" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin-top: 5px">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-9 hide" id="host">
+                <div class="he"><h1>Hosted Events</h1></div>
+
+                <div class="hostedevents">
+
+                    <div class="table">
+                        <table class="table table-responsive">
+                            <thead class="thead-default">
+
+                            <tr>
+                                <th>Event name</th>
+                                <th>venue</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Registered Users</th>
+                                <th>Details</th>
+                                <th>upload image</th>
+                                <th>upload video</th>
+                            </tr>
+                            </thead>
+                            <table-responsiveody>
+                                <% for(let i in hosted_events_list) { %>
+                                <tr>
+                                    <td><%= hosted_events_list[i].event_name %></td>
+                                    <td><%= hosted_events_list[i].venue %></td>
+                                    <td><%= utils.formatDate(hosted_events_list[i].start_date_time) %></td>
+                                    <td><%= utils.formatDate(hosted_events_list[i].end_date_time) %></td>
+                                    <td><p style="text-align: center;font-size:100%"><a href="/registeredUsers?eventid=<%= hosted_events_list[i].eventid %>"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color: teal"></i></a></p></td>
+                                    <td><p style="text-align: center;font-size:100%"><a href="/event/<%= hosted_events_list[i].eventid %>"><i class="fa fa-info-circle fa-lg" aria-hidden="true" style="color: teal"></i></a></p></td>
+                                    <td>
+
+
+                                        <form action="/uploadMedia" method="post" enctype="multipart/form-data">
+
+                                            <input type="hidden" value="<%=hosted_events_list[i].eventid %>" name='event_id'>
+                                            <input type="hidden" value="Isphoto" name='Isphoto'>
+
+                                            <input type="file" name="images" multiple="" accept="image/*"/>
+
+
+                                            <button class="btn" type="submit" id="submitBtn" style="">submit</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="/uploadMedia" method="post" enctype="multipart/form-data">
+                                            <input type="hidden" value="<%=hosted_events_list[i].eventid %>" name='event_id'>
+                                            <input type="hidden" value="Isvideo" name='Isvideo'>
+                                            <input type="file" name="videos" multiple="" accept="video/*" />
+
+                                            <button class="btn" type="submit" id="submitBtn" style="">submit</button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                                <% } %>
+                            </table-responsiveody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 hide" id="update">
+                <div class="he"><h1>Update Event</h1></div>
+                <div class="hostedevents" style="margin-bottom: 20px">
+                    <div>
+                        <p>Select event to update or change details</p>
+
+                        <div class="table">
+                            <table class="table table-responsive">
+                                <thead class="thead-default">
+                                <tr>
+                                    <th>Event name</th>
+                                    <th>venue</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <table-responsiveody>
+                                    <% for(let i in update_events_list) { %>
+                                    <tr>
+
+
+                                        <td><%= update_events_list[i].event_name %></td>
+                                        <td><%= update_events_list[i].venue %></td>
+                                        <td><%= update_events_list[i].start_date_time %></td>
+                                        <td><%= update_events_list[i].end_date_time %></td>
+                                        <% if(!update_events_list[i].approved){%>
+                                        <td><p style="color: red">Not Approved</p></td>
+                                        <%}else{%>
+                                        <td><p style="color: green">Approved</p></td>
+                                        <% } %>
+                                        <td>
+                                            <form method="post" action="/updateEvent"  enctype="multipart/form-data">
+                                                <input value="<%= update_events_list[i].eventid %>" name="eventid" style="display: none">
+
+                                                <button name="flag" value="2" type="submit" class="btn btn-success"> Update</button>
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                    <% } %>
+                                </table-responsiveody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 hide" id="query">
+                <% for(let i in replyResult){ %>
+                <form method="get" action="/myEvents">
+                    <div class="jumbotron jmb" style="margin-bottom: 0">
+                        <input style="display:none;" name="qid" value="<%= replyResult[i].qid %>">
+                        <p style="margin-bottom: 0" ><%= replyResult[i].description %></p>
+                        <textarea class="form-control text-field-box" rows="1" placeholder="Your Answer" style="margin-top: 0" name="reply"><%= replyResult[i].reply %></textarea>
+                        <button class="btn btn-success" type="submit" style="margin-top:10px ">Reply</button>
+                        <span style="margin-left: 70%!important;">From: <b><%= eventForReply[i] %></b></span>
+                    </div>
+                </form>
+                <% } %>
+            </div>
+
+            <% if(roleVar==="r1"){ %>
+            <div class="col-md-9 hide" id="request">
+
+                <div class="he"><h1>Requested Events</h1></div>
+                <% if(requested_events_list[0]!=null) { %>
+                <% for(i=0;;i++) { %>
+                <div class="hostedevents" style="margin-bottom: 20px">
+                    <div class="table">
+                        <table class="table table-bordered" style="overflow-y: hidden">
+                            <thead class="thead-default">
+                            <tr>
+                                <th>Event name</th>
+                                <th>venue</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Abacus price</th>
+                                <th>Non Abacus price</th>
+                                <th>Total Seats</th>
+                                <th>Club name</th>
+                            </tr>
+                            </thead>
+                            <table-responsiveody>
+                                <tr>
+                                    <td><%= requested_events_list[i].event_name %></td>
+                                    <td><%= requested_events_list[i].venue %></td>
+                                    <td><%= requested_events_list[i].start_date_time %></td>
+                                    <td><%= requested_events_list[i].end_date_time %></td>
+                                    <td><%= requested_events_list[i].abacus_price %></td>
+                                    <td><%= requested_events_list[i].non_abacus_price %></td>
+                                    <td><%= requested_events_list[i].total_seats %></td>
+                                    <td><%= clubname_list[i].clubname %></td>
+                                </tr>
+                            </table-responsiveody>
+                        </table>
+                        <table class="table">
+                            <thead class="thead-default">
+                            <tr>
+                                <th><b>Description :</b></th>
+                            </tr>
+                            </thead>
+                            <table-responsiveody>
+                                <tr>
+                                    <td><%= requested_events_list[i].description %></td>
+                                </tr>
+                            </table-responsiveody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <ul style="list-style-type:none ">
+                            <li style="float:left;padding-top: 0">
+                                <a href="<%= requested_events_list[i].event_photo %>">
+                                    <button type="button" class="btn btn-primary"> event Poster</button>
+                                </a>
+                            </li>
+                            <li style="float:left;padding-left: 10px;padding-top: 0">
+                                <form method="post" action="/approveOrDiscard">
+                                    <input value="<%= requested_events_list[i].eventid %>" name="eventid"
+                                           style="display: none">
+                                    <button type="submit" class="btn btn-success"
+                                            onclick="alert('Event Successfully Approved! See it in events list')"
+                                            name="approve" value="1"> Approve
+                                    </button>
+
+                                </form>
+                            </li>
+                            <li style="float:left;padding-left: 10px;padding-top: 0">
+                                <form method="post" action="/approveOrDiscard">
+                                    <input value="<%= requested_events_list[i].eventid %>" name="eventid"
+                                           style="display: none">
+                                    <button type="submit" class="btn btn-danger"
+                                            onclick="alert('Event Successfully Deleted!')" name="deleteEvent" value="1">
+                                        Delete
+                                    </button>
+                                </form>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <br>
+                <% if(!requested_events_list[i+1]){ %>
+                <% break; %>
+                <% }}} %>
+            </div>
+            <div class="col-md-9 hide" id="coordinator">
+                <div class="he"><h1>Coordinators</h1></div>
+
+                <div class="hostedevents">
+
+                    <div class="table">
+                        <table class="table table-responsive">
+                            <thead class="thead-default">
+
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Course</th>
+                                <th>Branch</th>
+                                <th>Year</th>
+                            </tr>
+                            </thead>
+                            <table-responsiveody>
+                                <% for(let i in coordinator_list) { %>
+                                <tr>
+                                    <td><%= coordinator_list[i].name %></td>
+                                    <td><%= coordinator_list[i].email %></td>
+                                    <td><%= coordinator_list[i].mobile_no%></td>
+                                    <td><%= coordinator_list[i].course %></td>
+                                    <td><%= coordinator_list[i].branch %></td>
+                                    <td><%= coordinator_list[i].year %></td>
+                                </tr>
+                                <% } %>
+                            </table-responsiveody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 hide" id="previous">
+                <div class="he"><h1>Previous Events</h1></div>
+
+                <div class="hostedevents">
+
+                    <div class="table">
+                        <table class="table table-responsive">
+                            <thead class="thead-default">
+
+                            <tr>
+                                <th>Event name</th>
+                                <th>venue</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Details</th>
+                            </tr>
+                            </thead>
+                            <table-responsiveody>
+                                <% for(let i in previous_events_list) { %>
+                                <tr>
+                                    <td><%= previous_events_list[i].event_name %></td>
+                                    <td><%= previous_events_list[i].venue %></td>
+                                    <td><%=utils.formatDate( previous_events_list[i].start_date_time) %></td>
+                                    <td><%= utils.formatDate(previous_events_list[i].end_date_time) %></td>
+                                    <td><a href="/event/<%= previous_events_list[i].eventid %>">Click</a></td>
+                                </tr>
+                                <% } %>
+                            </table-responsiveody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 hide" id="upcoming">
+                <div class="he"><h1>Upcoming Events</h1></div>
+
+                <div class="hostedevents">
+
+                    <div class="table">
+                        <table class="table table-responsive">
+                            <thead class="thead-default">
+
+                            <tr>
+                                <th>Event name</th>
+                                <th>venue</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Details</th>
+                                <% if(roleVar === "r1"){ %>
+                                <th>Discard</th>
+                                <%}%>
+                            </tr>
+                            </thead>
+                            <table-responsiveody>
+                                <% for(let i in upcoming_events_list) { %>
+                                <tr>
+                                    <td><%= upcoming_events_list[i].event_name %></td>
+                                    <td><%= upcoming_events_list[i].venue %></td>
+                                    <td><%=utils.formatDate( upcoming_events_list[i].start_date_time) %></td>
+                                    <td><%=utils.formatDate( upcoming_events_list[i].end_date_time) %></td>
+                                    <td><a href="/event/<%= upcoming_events_list[i].eventid %>">Click</a></td>
+                                    <% if(roleVar === "r1"){ %>
+                                    <td>
+                                        <form method="post" action="/approveOrDiscard">
+                                            <input value="<%= upcoming_events_list[i].eventid %>" name="eventid"
+                                                   style="display: none">
+                                            <button type="submit" class="btn btn-danger"
+                                                    onclick="alert('Event Successfully Discarded! You can Approve it anyTime')"
+                                                    name="discard" value="1"> Discard
+                                            </button>
+
+                                        </form>
+                                    </td>
+                                    <%}%>
+                                </tr>
+                                <% } %>
+                            </table-responsiveody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <% }} %>
+        </div>
+    </div>
+    <% include footer.html %>
+    <% include commonFooterScriptElements.html %>
+    <script src="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.css"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(".addMessage").each(function () {
+            alert("<%= addMessage %>");
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.table-responsive').DataTable();
+        } );
+    </script>
+    <% if(roleVar!="r3"){ %>
+    <script>
+        $(".uploadMediaMessage").each(function () {
+            alert("<%= uploadMediaMessage %>");
+        });
+    </script>
+    <% } %>
+
+    <script>
+
+        <% if(roleVar==="r1"){ %>
+            function request(){
+                let element = document.getElementById("host");
+                element.classList.remove("show");
+                element = document.getElementById("add");
+                element.classList.remove("show");
+                element = document.getElementById("update");
+                element.classList.remove("show");
+                element = document.getElementById("reg");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+                element = document.getElementById("query");
+                element.classList.remove("show");
+                element = document.getElementById("request");
+                element.classList.add("show");
+            }
+
+            function coordinator(){
+                let element = document.getElementById("host");
+                element.classList.remove("show");
+                element = document.getElementById("add");
+                element.classList.remove("show");
+                element = document.getElementById("update");
+                element.classList.remove("show");
+                element = document.getElementById("reg");
+                element.classList.remove("show");
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+                element = document.getElementById("query");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.add("show");
+            }
+            function upcoming(){
+                let element = document.getElementById("host");
+                element.classList.remove("show");
+                element = document.getElementById("add");
+                element.classList.remove("show");
+                element = document.getElementById("update");
+                element.classList.remove("show");
+                element = document.getElementById("reg");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+                element = document.getElementById("query");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.add("show");
+            }
+            function previous(){
+                let element = document.getElementById("host");
+                element.classList.remove("show");
+                element = document.getElementById("add");
+                element.classList.remove("show");
+                element = document.getElementById("update");
+                element.classList.remove("show");
+                element = document.getElementById("reg");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("query");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.add("show");
+            }
+        <% } %>
+    </script>
+    <script>
+        function hosted(){
+            let element = document.getElementById("add");
+            element.classList.remove("show");
+            element = document.getElementById("update");
+            element.classList.remove("show");
+            element = document.getElementById("reg");
+            element.classList.remove("show");
+        <% if(roleVar==="r1"){ %>
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+            <% } %>
+            element = document.getElementById("query");
+            element.classList.remove("show");
+            element = document.getElementById("host");
+            element.classList.add("show");
+        }
+
+        function register(){
+            let element = document.getElementById("host");
+            element.classList.remove("show");
+            element = document.getElementById("add");
+            element.classList.remove("show");
+            element = document.getElementById("update");
+            element.classList.remove("show");
+        <% if(roleVar==="r1"){ %>
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+            <%}%>
+            element = document.getElementById("query");
+            element.classList.remove("show");
+            element = document.getElementById("reg");
+            element.classList.add("show");
+        }
+
+        function add(){
+            let element = document.getElementById("host");
+            element.classList.remove("show");
+        <% if(roleVar==="r1"){ %>
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+            <%}%>
+            element = document.getElementById("update");
+            element.classList.remove("show");
+            element = document.getElementById("reg");
+            element.classList.remove("show");
+            element = document.getElementById("query");
+            element.classList.remove("show");
+            element = document.getElementById("add");
+            element.classList.add("show");
+        }
+
+        function update(){
+            let element = document.getElementById("host");
+            element.classList.remove("show");
+            element = document.getElementById("add");
+            element.classList.remove("show");
+            element = document.getElementById("reg");
+            element.classList.remove("show");
+        <% if(roleVar==="r1"){ %>
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+            <%}%>
+            element = document.getElementById("query");
+            element.classList.remove("show");
+            element = document.getElementById("update");
+            element.classList.add("show");
+        }
+        function queries(){
+            let element = document.getElementById("host");
+            element.classList.remove("show");
+            element = document.getElementById("add");
+            element.classList.remove("show");
+            element = document.getElementById("reg");
+            element.classList.remove("show");
+        <% if(roleVar==="r1"){ %>
+                element = document.getElementById("request");
+                element.classList.remove("show");
+                element = document.getElementById("coordinator");
+                element.classList.remove("show");
+                element = document.getElementById("upcoming");
+                element.classList.remove("show");
+                element = document.getElementById("previous");
+                element.classList.remove("show");
+            <% } %>
+            element = document.getElementById("update");
+            element.classList.remove("show");
+            element = document.getElementById("query");
+            element.classList.add("show");
+        }
+
+
+        <% if(roleVar==="r1"){ %>
+            // Get the modal
+            let modal = document.getElementById('myModal');
+
+            // Get the button that opens the modal
+            let btn = document.getElementById("myBtn");
+
+            // Get the <span> element that closes the modal
+            let span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal
+            btn.onclick = function() {
+                modal.style.display = "block";
+            };
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
+
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            };
+        <%}%>
+    </script>
+</body>
+</html>

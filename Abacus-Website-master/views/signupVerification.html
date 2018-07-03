@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verification</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        #p1{
+            text-align:center;
+            font-size:35px;
+        }
+        .imagerow{
+            margin-top:2%;
+        }
+        #p2{
+            text-align:center;
+            font-size:15px;
+
+        }
+        #p3{
+            margin-top:3%;
+            text-align:center;
+            font-size:15px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row imagerow">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <img class="img-responsive" src="/static/images/monkey.jpg" >
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+
+    <div class="row mainrow">
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 "></div>
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 jumbotron">
+            <p id="p1"> Just one more step...</p>
+
+            <p id="p2">A verification code has been send to the mail <b><%= email %></b></p>
+		     <%  if(errorMessage){ %>
+		<p style="color:red;text-align:center"><%= errorMessage %></p>
+<% } %>
+            <%  if(renderByForgetPasswordPage){ %>
+            <form method="post" action="/recoverPassword">
+            <% }else{ %>
+            <form method="get" action="/signupVerification">
+            <% } %>
+                <div class="form-group">
+                    <input type="text" name="code" class="form-control" id="email" placeholder="Enter code here" style="width:50%;margin-left:25%">
+                </div>
+
+                <button type="submit" name="email" value="<%= email %>" class="btn btn-success" style="margin-left:30%">Activate Account</button>
+            </form>
+            <p id="p3">Didn't get code? Please check your spam folder also!<p>
+
+
+        </div>
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 "></div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+@font-face {
+    font-family: "Futura Light";
+    src: url('/static/styles/core/FuturaBT_Light.otf');
+}
+html,body,p,button,h1,h2,h3,h4,h5,a {
+    font-family: "Futura Light", "Open Sans", sans-serif;
+}
+body{
+overflow:inherit;
+}
+.color-container{
+    color: rgb(44,62,80);
+}
+.container-fluid{width: 95%;    }
+.drop-btn#status-btn-yourevent {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 16px;
+    padding-right: 21px;
+  transition: box-shadow 0.2s ease-in-out;
+    box-shadow:0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+}
+.drop-btn#status-btn-yourevent:hover{
+    background-color: white;
+    color: #009688;
+    box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    
+   /* animation: mymove 7s infinite;*/
+}
+
+.wrapper-odd,.wrapper-even {
+    border-color: transparent;
+    padding-bottom:0;
+    margin-bottom: 0;
+}
+.for-shadow-filter{
+    display: inline-block;
+     box-shadow:0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+       transition: box-shadow 0.2s ease-in-out;
+}
+.for-shadow-filter:hover,.w3-card-4:hover{
+     box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+   }
+.drop-btn{
+    background-color: #009688;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+    /*box-shadow: 4px 4px 8px 0 rgba(0,0,0,0.3);*/
+
+}
+.drop-btn:focus{  outline: none;}
+.drop-btn#clubs-btn{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 21px;
+}
+.drop-btn#status-btn{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 16px;
+    padding-right: 21px;
+ }
+.drop-down-status {
+    position: relative;
+    display: inline-block;
+}
+.drop-down-clubs {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: teal;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.drop-down:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content#status a:hover, .dropdown-content#clubs a:hover {background-color: #ccc;color: black!important;}
+.drop-down:hover .drop-btn {
+    background-color: white;
+    color: #31708f;
+    box-shadow: 3px 3px 50px 3px rgba(0,0,0,0.2);
+}
+.filter-buttons{
+    display: inline;
+    float: left;
+}
+.filter-paragraph-text{
+    color:#827717;
+    font-size: 20px;
+    margin-left: 4%;
+}
+@media (max-width: 480px) {
+    .phone-remove{display: none}
+.drop-btn#status-btn-yourevent{margin-left: 0;width: 120px;}
+}
+@media (max-width: 850px) {
+    .det{display: none}
+
+}
+@media (max-width: 580px) {
+    .det{display: block}
+
+}
+.event-heading{
+    margin-top: 2%;
+    margin-left: 0;
+    color: #827717;
+    font-size: 35px;
+}
+.event-name-desc{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    word-wrap:break-word;
+}
+.event-name{
+    font-size:25px;
+    margin-bottom: 0;
+    margin-top: 1%;
+}
+.abacus-member-logo{
+    font-size:15px;
+    margin-left:10px;
+}
+.abacus-price{font-size:13px;}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+@-webkit-keyframes zoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+@keyframes zoom {
+    from {transform: scale(0.1)}
+    to {transform: scale(1)}
+}
+.close {
+    font-size: 60px;
+    transition: 0.3s ease;
+}
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+.overlay {
+    cursor: pointer;
+    position: absolute;
+    top:0;
+    background-color: rgba(00,80,80,0.3);
+    overflow: hidden;
+    width: 0;
+    margin-left: 0;
+    min-height: 150px;
+    max-height: 150px;
+    transition: .5s ease;
+}
+.mycontainer:hover .overlay {
+    width: 30%;
+}
+.text {
+    white-space: nowrap;
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+.text1{top:50%}
+.text2{top:65%}

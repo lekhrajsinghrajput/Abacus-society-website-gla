@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include commonHeadElements.html %>
+    <title>ABACUS | Events</title>
+    <meta name="description" content="Explore and register in the events in Abacus society.">
+	<meta name="keywords" content="abacus events,events in gla,workshop gla,abacus workshop,events in abacus,abacus gla events,gla events,gla university events,abacus society events,abacus computer events,glauniversity events">
+    <link rel="stylesheet" href="/static/styles/events.css">
+    <link rel="stylesheet" href="/static/styles/core/w3.css">
+    <link rel="stylesheet" href="/static/styles/core/material-scrolltop.css">
+
+</head>
+<body>
+
+
+<div id="navbar-id">
+<% include navigation_bar.html %>
+</div>
+<br><br><br><br><br>
+<div class="container-fluid">
+
+    <div class="row" style="margin-top: 2%">
+        <div class="col-xs-2 col-sm-2 col-md-2 phone-remove">
+            <p class="filter-paragraph-text"><strong>Filter By: </strong></p>
+        </div>
+        <div class="col-xs-7 col-sm-7 col-md-7" style="padding: 0">
+            <ul class="filter" style="padding: 0">
+            <li class="for-shadow-filter">
+            <ul style="margin: 0;padding: 0">
+                <li class="filter-buttons">
+                    <div class="drop-down drop-down-clubs">
+                        <button class="drop-btn" id="clubs-btn" data-ripple="#002040" ><strong>Clubs</strong></button>
+                        <div class="dropdown-content w3-animate-opacity" id="clubs">
+                            <a href="/events" data-ripple="#002040" ><strong>All</strong></a>
+                            <% for(var i in club_list) { %>
+                            <% if(isStatusSelected) {%>
+                            <a href="/events?cid=<%=club_list[i].clubid %>&status<%= status %>" data-ripple="#002040"><strong><%= club_list[i].clubname %></strong></a>
+                            <% } else {%>
+                            <a href="/events?cid=<%=club_list[i].clubid %>" data-ripple="#002040"><strong><%= club_list[i].clubname %></strong></a>
+                            <% } } %>
+                        </div>
+                    </div>
+                </li>
+                <li class="filter-buttons">
+                    <div class=" drop-down drop-down-status">
+                        <button class="drop-btn" id="status-btn" data-ripple="#002040"> <strong>Status</strong></button>
+                        <div class="dropdown-content w3-animate-opacity" id="status">
+                            <a href="/events" data-ripple="#002040"><strong>All</strong></a>
+                            <% if(isClubSelected) { %>
+                            <a href="/events?status=previous&cid=<%=club_id %>" data-ripple="#002040"><strong>Previous</strong></a>
+                            <a href="/events?status=upcoming&cid=<%=club_id %>" data-ripple="#002040"><strong>Upcoming</strong></a>
+                            <a href="/events?status=ongoing&cid=<%=club_id %>" data-ripple="#002040"><strong>Ongoing</strong></a>
+                            <% } else {%>
+                            <a href="/events?status=previous" data-ripple="#002040"><strong>Previous</strong></a>
+                            <a href="/events?status=upcoming" data-ripple="#002040"><strong>Upcoming</strong></a>
+                            <a href="/events?status=ongoing" data-ripple="#002040"><strong>Ongoing</strong></a>
+                            <% } %>
+                        </div>
+                    </div>
+                </li>
+                </ul>
+                </li>
+
+            </ul>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-2">
+            <a href="/myEvents">
+                <button class="drop-btn" id="status-btn-yourevent" data-ripple="#002040"> <strong>Your Events</strong></button>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+        <p class="event-heading">Events</p>
+    </div>
+    </div>
+      <hr style="
+background:#eee;border:none;border-radius:50%
+;height:3px">
+    <div class="color-container">
+    <div class="row">
+        <% for(var i in event_list) { %>
+        <div class="col-sm-3 col-md-3">
+            <div >
+                <div class="w3-card-4" style="width:100%;margin-bottom: 10px;">
+
+                    <div>
+                        <div onclick="modelShow('<%= event_list[i].event_photo %>','<%= event_list[i].event_name %>');" class="mycontainer">
+                            <img id="myImg" class="lazy" data-src="<%= event_list[i].event_photo %>" alt="Can't Show" style="width:100%;max-height: 150px;min-height: 150px;cursor: pointer">
+                            <div class="overlay">
+                                <div class="text text1"><%= event_list[i].avilable_seats %> Seats</div>
+                                <br>
+                                <div class="text text2">Left</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w3-container w3-center" >
+                        <p class="event-name-desc event-name" ><b><%= event_list[i].event_name %></b></p>
+                        <p class="event-name-desc event-desc"><%= event_list[i].description %></p>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-xs-5 col-sm-5 col-md-5">
+                                <span class='abacus-member-logo' data-toggle="tooltip" title="Abacus Price">
+                                <i class="fa fa-user-circle-o"></i>
+                                 </span>
+                                        <span class="abacus-price">   <i class="fa fa-inr"></i> <%= event_list[i].abacus_price %></span>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7">
+                                        <p style="font-size:13px;"><%= utils.formatDate(event_list[i].start_date_time)
+                                            %></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5 col-sm-5 col-md-5">
+                                <span class='non-abacus-member-logo' data-toggle="tooltip" title="Non Abacus Price"
+                                      style="font-size:15px;margin-left:10px">
+                <i class="fa fa-user-circle"></i>
+            </span>
+                                        <span class="abacus-price" style="font-size:13px">   <i class="fa fa-inr"></i>  <%= event_list[i].non_abacus_price %></span>
+                                    </div>
+                                    <div class="col-xs-7 col-sm-7 col-md-7">
+                                        <p style="font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;word-wrap:break-word">
+                                            <%= event_list[i].venue %></p>
+                                    </div>
+                                </div>
+                                
+                                <% if(currentUser){ %>
+                                <div class="row">
+                                    <div class="col-xs-7 col-sm-7 col-md-7 det"></div>
+                                    <div class="col-xs-5 col-sm-5 col-md-5">
+                                        <p>
+											<a href="/event/<%=event_list[i].eventid %>"
+                                               class = "Details-text" target="_blank" style="text-decoration: none;cursor: pointer;color: teal!important;font-size: 15px;"
+                                               > Details...
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <% } else { %>
+									 <div class="row">
+                                    <div class="col-xs-7 col-sm-7 col-md-7 det"></div>
+                                    <div class="col-xs-5 col-sm-5 col-md-5">
+                                        <p>
+											<a href="/event/<%=event_list[i].eventid %>"
+                                               class = "Details-text" style="text-decoration: none;cursor: pointer;color: teal!important;font-size: 15px;"
+                                               > Details...
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+								<% } %>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+<div id="myModal" class="modal">
+    <div onclick="navShow();">
+        <span class="w3-button w3-padding close w3-display-topright" style="padding:6px 24px" >X</span>
+    </div>
+
+    <img class="modal-content lazy" id="img01">
+    <div id="caption"></div>
+</div>
+<button class="material-scrolltop my-scroll w3-teal" type="button" data-ripple="#002040"></button>
+<% include footer.html %>
+<% include commonFooterScriptElements.html %>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script>
+    function modelShow(imgSrc,eventName) {
+
+        document.getElementById("navbar-id").style.display="none";
+        let modal = document.getElementById('myModal');
+        let modalImg = document.getElementById("img01");
+        let captionText = document.getElementById("caption");
+        modal.style.display = "block";
+        modalImg.src = imgSrc;
+        captionText.innerHTML =eventName;
+    }
+</script>
+<script src="/static/scripts/material-scrolltop.js"></script>
+<script>
+    $(document).ready(function() {
+        $('body').materialScrollTop({
+            // OPTIONS HERE
+        });
+    });
+</script>
+<script>
+    $('body').materialScrollTop({
+
+        // add padding 100px
+        padding: 100,
+
+        // reveal button when scrolling over <header> ...
+        revealElement: 'header',
+
+        // and do it at the end of </header> element
+        revealPosition: 'bottom',
+
+        // <a href="http://www.jqueryscript.net/animation/">Animation</a> will run 600 ms
+        duration: 600,
+
+        // easing animations
+        easing: 'swing',
+
+        // execute a function when animation ends
+        onScrollEnd: function() {
+            console.log('Scroll End');
+        }
+
+    });
+</script>
+<script>
+    function navShow() {
+        let modal = document.getElementById('myModal');
+        modal.style.display = "none";
+        document.getElementById("navbar-id").style.display="block";
+    }
+</script>
+</body>
+</html>

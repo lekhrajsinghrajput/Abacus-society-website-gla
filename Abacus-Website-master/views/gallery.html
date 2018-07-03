@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	
+    <title>ABACUS | Gallery</title>
+    <meta name="description" content="Explore the gallery and see the photos and videos in Abacus.">
+	<meta name="keywords" content="abacus gallery,abacus gla gallery,gla gallery,gla university gallery,abacus society gallery,abacus computer gallery,glauniversity gallery">
+    <% include commonHeadElements.html %>
+    <link rel="stylesheet" href="/static/styles/core/w3.css">
+    <link rel="stylesheet" href="/static/styles/gallery.css">
+    <link rel="stylesheet" href="/static/styles/core/material-scrolltop.css">
+
+
+</head>
+<body class="body">
+<% let j; %>
+<% include navigation_bar.html %>
+
+<br><br><br><br>
+<div class="container-fluid" style="width: 95%">
+    <div class="row filter" >
+        <ul>
+            <li class="filter-paragraph filterbygallery">
+                <pre class="filter-paragraph-text">Filter By:    </pre>
+            </li>
+            <li class="for-shadow-filter">
+            <ul style="margin: 0;padding: 0">
+            <li class="filter-buttons filterbuttons ">
+                <div class="drop-down drop-down-clubs">
+                    <button class="drop-btn w3-teal " id="clubs-btn" data-ripple="#002040"><strong>Clubs</strong></button>
+                    <div class="dropdown-content w3-animate-opacity" id="clubs">
+                        <% if(media_type){%>
+                        <a style="text-decoration: none; " href="/gallery?media_type=<%= media_type %>" data-ripple="#002040"><strong>All</strong></a>
+                        <%}else{%>
+                        <a style="text-decoration: none; " href="/gallery" data-ripple="#002040"><strong>All</strong></a>
+                        <% }for(var i in clubList) { %>
+                        <a style="text-decoration: none; " href="/gallery?clubid=<%= clubList[i].clubid %>" data-ripple="#002040"><strong><%= clubList[i].clubname %></strong></a>
+                        <% } %>
+                    </div>
+                </div>
+            </li>
+            <li class="filter-buttons ">
+                <div class=" drop-down drop-down-status">
+                    <button class="drop-btn w3-teal" id="status-btn" data-ripple="#002040"> <strong>Event</strong></button>
+                    <div class="dropdown-content " id="status">
+                        <% if(clubid) { %>
+                        <% if(eventList){ %>
+                        <a style="text-decoration: none; " href="/gallery?clubid=<%= clubid %>" data-ripple="#002040"><strong>All</strong></a>
+                        <% for(var i in eventList){ %>
+                        <a style="text-decoration: none;" href="/gallery?clubid=<%= clubid %>&eventid=<%= eventList[i].eventid %>" data-ripple="#002040"><strong><%= eventList[i].event_name %></strong></a>
+                        <% }} else {%>
+                        <a style="text-decoration: none;" data-ripple="#002040">No Events</a>
+                        <% }}%>
+                    </div>
+                </div>
+            </li>
+           
+            
+            <li class="filter-buttons">
+                <div class=" drop-down drop-down-media">
+                    <button class="drop-btn w3-teal" id="media-btn" data-ripple="#002040"> <strong>Media</strong></button>
+                    <div class="dropdown-content" id="media">
+                        <% if(clubid){ %>
+                        <% if(eventid) { %>
+                        <a  href="/gallery?clubid=<%= clubid %>&eventid=<%= eventid %>" data-ripple="#002040"><strong>All</strong></a>
+                        <a  href="/gallery?clubid=<%= clubid %>&eventid=<%= eventid %>&media_type=photo" data-ripple="#002040"><strong>Photos</strong></a>
+                        <a href="/gallery?clubid=<%= clubid %>&eventid=<%= eventid %>&media_type=video" data-ripple="#002040"><strong>Videos</strong></a>
+                        <a href="/gallery?clubid=<%= clubid %>&eventid=<%= eventid %>" data-ripple="#002040"><strong>Other</strong></a>
+
+                        <% } else { %>
+                        <a  href="/gallery?clubid=<%= clubid %>" data-ripple="#002040"><strong>All</strong></a>
+                        <a  href="/gallery?clubid=<%= clubid %>&media_type=photo" data-ripple="#002040"><strong>Photos</strong></a>
+                        <a  href="/gallery?clubid=<%= clubid %>&media_type=video" data-ripple="#002040"><strong>Videos</strong></a>
+                        <a  href="/gallery?clubid=<%= clubid %>" data-ripple="#002040"><strong>Other</strong></a>
+                        <% }}else{ %>
+                        <a href="/gallery" data-ripple="#002040"><strong>All</strong></a>
+                        <a href="/gallery?media_type=photo" data-ripple="#002040"><strong>Photos</strong></a>
+                        <a  href="/gallery?media_type=video" data-ripple="#002040"><strong>Videos</strong></a>
+                        <a  href="/gallery" data-ripple="#002040"><strong>Other</strong></a>
+                        <% }%>
+                    </div>
+                </div>
+            </li>
+             </ul>
+            </li>
+        </ul>
+    </div>
+    <p id="media-heading">Media</p>
+    <hr style="
+background:#eee;border:none;border-radius:50%
+;height:3px">
+</div>
+
+<div class="container-fluid" style="margin: 0;padding: 0">
+
+    <div class="w3-row" id="myGrid" style="margin-bottom:128px">
+
+        <% for(let i in mediaList) { %>
+
+        <div class="col-sm-3 wow slideInUp" data-wow-delay="0.2s" style="margin: 0;padding: 2px;">
+            <div class="media-block" style="margin: 0;padding:0">
+
+                <% if(mediaList[i].media_type==="photo") { %>
+                <% j=i; %>
+                <div class="animation-hover-3d" style="transition-delay: 0s">
+                    <div>
+                        <a class="a-for-modal" style="margin: 0;padding: 0"><img class=" lazy media-image hover-shadow cursor " id="mediaImage<%= i %>" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="<%= mediaList[i].file %>" onclick="openModal();currentSlide(<%= i %>)" style="margin:0;padding: 0;" ></a>
+                    </div>
+                </div>
+
+                <% }else if(mediaList[i].media_type==="video"){ %>
+                <div style="transition-delay: 0s">
+                <video controls class="lazy" style="padding: 0;margin: 0;">
+                    <data-src src="<%= mediaList[i].file %>" type="video/mp4"> </data-src>
+                    <data-src src="<%= mediaList[i].file %>" type="video/webm"></data-src>
+                    <data-src src="<%= mediaList[i].file %>" type="video/ogg"> </data-src>
+                    Your browser does not support HTML5 video.
+                </video>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+
+</div>
+
+<div id="myModal" class="modal">
+    <span class="w3-button w3-padding close w3-display-topright close cursor" style="padding:6px 24px"  onclick="closeModal()">x</span>
+    <div class="modal-content">
+
+        <% for( let i in mediaList) { %>
+        <% if(mediaList[i].media_type==="photo") { %>
+
+        <div class="mySlides">
+            <div class="numbertext"><%= i %> / <%= j %></div>
+            <a  href="<%= mediaList[i].file %>"><img class="lazy img img-responsive w3-animate-opacity " id="modal-img<%= i %>" style="max-height: 500px;width: 100% "></a>
+        </div>
+
+        <% } } %>
+        <a class="prev" onclick="plusSlides(-1)" style="text-decoration: none">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)" style="text-decoration: none">&#10095;</a>
+
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+
+    </div>
+</div>
+<br>
+<button class="material-scrolltop my-scroll w3-teal" type="button" data-ripple="#002040"></button>
+<% include footer.html %>
+<% include commonFooterScriptElements.html %>
+
+
+<script>
+    $(function() {
+        $('.lazy').lazy({
+            placeholder: "data:image/gif;base64,R0lGODlhEALAPQAPzl5uLr9Nrl8e7..."
+        });
+    });
+</script>
+
+<script>
+    function getRandomColor() {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    <% for(let k in mediaList){ %>
+        $('#mediaImage<%= k %>').css('background',getRandomColor());
+    <% } %>
+</script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="/static/scripts/material-scrolltop.js"></script>
+<script>
+    $(document).ready(function() {
+        $('body').materialScrollTop({
+            // OPTIONS HERE
+        });
+    });
+</script>
+<script type="text/javascript">
+
+    function initAnimation(){
+        var panes = document.querySelectorAll('.animation-hover-3d');
+        for(var i=0; i<panes.length; i++){
+            var element = panes[i];
+            // console.log(element, element.childNodes);
+            handlePane(element);
+        }
+    }
+    function handlePane(element){
+        element.addEventListener('mousemove',function(event){
+            // console.log('on mousemove')
+            var mouseX = event.layerX;
+            var mouseY = event.layerY;
+            var elementH = element.scrollHeight;
+            var elementW = element.scrollWidth;
+            var maxRotationAngle = 16;
+            function getRotationAngle(cx,cy,x,y,ma){
+                return ma * Math.sqrt( ( (cx - x)*(cx - x) + (cy - y) * (cy - y) ) / (cx*cx+cy*cy) ) ;
+            }
+            var rotationAngle = 3*getRotationAngle(elementW/2, elementH/2, mouseX, mouseY, maxRotationAngle);
+            var tr = '';
+
+            tr += 'transform:translateZ(10px) rotate3d(' + -1 * ( mouseY - (1.0*elementH/2) ) +',' + ( mouseX - (1.0*elementW/2) )  + ',0,' + rotationAngle + 'deg);transform:rotate3d(' + -1 * ( mouseY - (1.0*elementH/2) ) +',' + ( mouseX - (1.0*elementW/2) )  + ',0,' + rotationAngle + 'deg);';
+
+            var transformation = tr;
+            transformation += '-webkit-'+tr;
+            transformation += '-moz-'+tr;
+            transformation += '-ms-'+tr;
+            transformation += '-o-'+tr;
+
+            element.childNodes[1].setAttribute('style',transformation);
+            // element.childNodes.setAttribute({transform:transformation});
+        });
+        element.addEventListener('mouseleave',function(){
+            element.childNodes[1].setAttribute('style',"");
+        });
+    }
+    initAnimation();
+</script>
+<script>
+    $('body').materialScrollTop({
+
+        // add padding 100px
+        padding: 100,
+
+        // reveal button when scrolling over <header> ...
+        revealElement: 'header',
+
+        // and do it at the end of </header> element
+        revealPosition: 'bottom',
+
+        // <a href="http://www.jqueryscript.net/animation/">Animation</a> will run 600 ms
+        duration: 600,
+
+        // easing animations
+        easing: 'swing',
+
+        // execute a function when animation ends
+        onScrollEnd: function() {
+            console.log('Scroll End');
+        }
+
+    });
+</script>
+
+<script>
+		<% for( let i in mediaList) { %>
+		 $("#modal-img<%= i %>").attr("data-src","<%= mediaList[i].file %>");
+		 <% } %>
+    function openModal() {
+	
+        document.getElementById('myModal').style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = "none";
+    }
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("demo");
+        let captionText = document.getElementById("caption");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+        captionText.innerHTML = dots[slideIndex+1].alt;
+    }
+</script>
+
+</body>
+</html>

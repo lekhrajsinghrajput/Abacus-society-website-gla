@@ -1,0 +1,247 @@
+<html>
+<head>
+    <style>
+        @font-face {
+            font-family: "Futura Light";
+            src: url('/static/styles/core/FuturaBT_Light.otf');
+        }
+        @font-face {
+            font-family: "place script mt";
+            src: url('/static/styles/core/place-script-mt.TTF');
+        }
+        .back-ground{
+            width: 100%;
+            position: absolute;
+            z-index: -1;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+        }
+
+        /*--modal----------*/
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .tip-btn{
+            position: fixed;
+            z-index: 500;
+            margin-left: 86%;
+            margin-top: 2%;
+            color: white;
+        }
+
+        .print-btn{
+            position: fixed;
+            z-index: 500;
+            margin-left: 90%;
+            margin-top: 2%;
+            background: orange;
+            color: white;
+        }
+
+        .p1{
+            font-size: 50px!important;
+            font-family: place script mt!important;
+            margin-top: 39.5%!important;
+            text-align: left!important;
+            margin-bottom: 0!important;
+            margin-left: 3%!important;
+            letter-spacing: 3px!important;
+            color: grey!important;
+            font-weight: 700!important;
+        }
+        .of{color: black!important;}
+        .p2{
+            font-size: 50px!important;
+            text-transform: capitalize!important;
+            font-family: place script mt!important;
+            margin-top: -2%!important;
+            text-align: left!important;
+            margin-bottom: 0!important;
+            margin-left: 62%!important;
+            letter-spacing: 3px!important;
+            color: grey!important;
+            font-weight: 700!important;
+        }
+
+        .p3{
+            font-size: 50px!important;
+            text-transform: capitalize!important;
+            font-family: place script mt!important;
+            margin-top: 2.8%!important;
+            text-align: left!important;
+            margin-bottom: 0!important;
+            margin-left: 9%!important;
+            letter-spacing: 3px!important;
+            color: grey!important;
+            font-weight: 700!important;
+        }
+        @media print {
+            .button-hide{display: none;}
+            .p3{margin-top: 3%}
+            .back-ground{height: 100%;}
+            .p1{
+                font-size: 50px!important;
+                font-family: place script mt!important;
+                margin-top: 39.2%!important;
+                text-align: left!important;
+                margin-bottom: 0!important;
+                margin-left: 3%!important;
+                letter-spacing: 3px!important;
+                color: grey!important;
+                font-weight: 700!important;
+            }
+            .of{color: black!important;}
+            .p2{
+                font-size: 50px!important;
+                text-transform: capitalize!important;
+                font-family: place script mt!important;
+                margin-top: -3.5%!important;
+                text-align: left!important;
+                margin-bottom: 0!important;
+                margin-left: 62%!important;
+                letter-spacing: 3px!important;
+                color: grey!important;
+                font-weight: 700!important;
+            }
+            .p3{
+                font-size: 50px!important;
+                text-transform: capitalize!important;
+                font-family: place script mt!important;
+                margin-top: 2%!important;
+                text-align: left!important;
+                margin-bottom: 0!important;
+                margin-left: 9%!important;
+                letter-spacing: 3px!important;
+                color: grey!important;
+                font-weight: 700!important;
+            }
+        }
+    </style>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon%20(2).ico">
+    <title>Certificate</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="button-hide"><button class="btn btn-success tip-btn" id="myBtn" onclick="">Help</button></div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>Tips</h1>
+            <ul>
+                <li><p>Click on print button</p></li>
+                <li><p>Change <b>Layout</b> to Landscape</p></li>
+                <li><p>Select <b>Papaer Size</b> A4</p></li>
+                <li><p>Set <b>Margins</b> to none</p></li>
+                <li><p>Enter value of <b>Scale</b> to 100</p></li>
+            </ul>
+        </div>
+    </div>
+    <div class="button-hide"><button class="btn print-btn" id="cmd" onclick="window.print();">Print</button></div>
+
+    <img class="back-ground" src="/static/images/3.jpg" alt="no image">
+    <% if(userDetails[0].year === 1) { %>
+    <p class="p1" style="color: grey!important;">
+    <% if(userDetails[0].gender === 'male'){ %>
+                Mr.
+                <% } else{ %>
+                Mrs.
+                <% } %>
+     <%= userDetails[0].name %> <span class="of">of</span> 
+
+     <%= userDetails[0].course %> <%= userDetails[0].year %>st Year</p>
+    <% } else if(userDetails[0].year === 2) { %>
+    <p class="p1" style="color: grey!important;"><% if(userDetails[0].gender === 'male'){ %>
+                Mr.
+                <% } else{ %>
+                Mrs.
+                <% } %><%= userDetails[0].name %> <span class="of">of</span> <%= userDetails[0].course %> <%= userDetails[0].year %>nd Year</p>
+    <% } else if(userDetails[0].year === 3) { %>
+    <p class="p1" style="color: grey!important;"><% if(userDetails[0].gender === 'male'){ %>
+                Mr.
+                <% } else{ %>
+                Mrs.
+                <% } %><%= userDetails[0].name %> <span class="of">of</span> <%= userDetails[0].course %> <%= userDetails[0].year %>rd Year</p>
+    <% } else if(userDetails[0].year === 4) { %>
+    <p class="p1" style="color: grey!important;"><% if(userDetails[0].gender === 'male'){ %>
+                Mr.
+                <% } else{ %>
+                Mrs.
+                <% } %><%= userDetails[0].name %> <span class="of">of</span> <%= userDetails[0].course %> <%= userDetails[0].year %>th Year</p>
+    <% } else{ %>
+    <p class="p1" style="color: grey!important;"><% if(userDetails[0].gender === 'male'){ %>
+                Mr.
+                <% } else{ %>
+                Mrs.
+                <% } %><%= userDetails[0].name %></p>
+    <% }  %>
+    <p class="p2"><%= eventDetails[0].event_name %></p>
+    <p class="p3"><%= utils.formatDate(eventDetails[0].start_date_time) %>.</p>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>

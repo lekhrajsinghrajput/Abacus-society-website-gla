@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <% include commonHeadElements.html %>
+    <link rel="stylesheet" href="/static/styles/core/w3.css">
+    <link rel="stylesheet" href="/static/styles/event.css">
+    <link rel="stylesheet" href="/static/styles/core/material-scrolltop.css">
+    <title><%= event_details[0].event_name %></title>
+   
+</head>
+<body style="">
+
+<% if(message) { %>
+<span class="message"></span>
+<% } %>
+
+<% if(queryMessage) { %>
+<span class="queryMessage"></span>
+<% } %>
+<div id="make-progress">
+</div>
+</div>
+<section id="section01" class="demo w3-animate-opacity" style="transform:translateY(0px);-webkit-transform:translateY(0px);-moz-transform:translateY(0px);-ms-transform:translateY(0px);-o-transform:translateY(0px);">
+    <img id="section-background" class="lazy poster-img" data-src="<%= event_details[0].event_photo %>" alt="Can"t Show Poster">
+
+    <h1 id="section-event-heading"><%= event_details[0].event_name %></h1>
+    <div id="section03" class="sectiona demo" style="cursor: pointer;">
+        <a onclick="myscrollfunction()" style="text-align: center"><span></span></a>
+    </div>
+
+</section>
+
+
+<div id="mySidenav" class="sidenav" style="box-shadow: 4px 0 5px 0 rgba(0,0,0,0.14),  1px 0 10px 0 rgba(0,0,0,0.12), 2px 0 4px -1px rgba(0,0,0,0.2)">
+    <a href="javascript:void(0)" class="closebtn5" onclick="closeNav()">&times;</a>
+    <br><br><br>
+    <% if(event_status==="previous"){ %>
+    <a href="/certificate" >Certificate </a>
+    <a href="/gallery?eventid=<%= event_id %>" >Gallery</a>
+    <a style="cursor:pointer" onclick="generatePdf();">Generate Report</a>
+    <a>FAQ</a>
+    <% } else { %>
+    <a style="cursor:pointer" onclick="generatePdf();">Generate Report</a>
+    <a style="cursor: pointer" data-toggle="modal" data-target="#myModal" >Register</a>
+    <a href="#faqs" >FAQ</a>
+    <a href="/register/<%= event_id %>?cancelRegistration=yes">Cancel Registration</a>
+    <% } %>
+</div>
+<div id="for-desktop">
+    
+    <div id="main">
+        <!--    <button class="w3-button w3-xlarge w3-circle w3-teal w3-card-4 w3-display-bottomright plus-button" onclick="openNav()">+</button> -->
+        <div class="container-fluid" id="section02">
+
+            <div class="row">
+                <div class="col-sm-11 col-md-11">
+					
+                    <% for(var i in event_details) { %>
+						<br>
+                    <h2 class="heading"><%= event_details[i].event_name %></h2>
+                    <% } %>
+                     <hr style="
+background:#eee;border:none;border-radius:50%
+;height:3px">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-11 jumbotron">
+
+                    <div class="col-md-6 description-div">
+                        <% for(var i in event_details) { %>
+                        <h3><b>Description : </b></h3>
+                        <h4 class="desc"><%= event_details[i].description %></h4>
+                    </div>
+                    <div class="col-md-6 event-detail">
+                        <h4><b>Start Time</b></h4>
+                        <h5><%= event_details[i].start_date_time %></h5>
+                        <h4><b>End Time</b></h4>
+                        <h5><%= event_details[i].end_date_time %></h5>
+                        <h4><b>Place</b></h4>
+                        <h5><%= event_details[i].venue %></h5>
+                        <h4><b>Abacus Price</b></h4>
+                        <h5>Rs <%= event_details[i].abacus_price %></h5>
+                        <h4><b>Non Abacus price</b></h4>
+                        <h5>Rs <%= event_details[i].non_abacus_price %> </h5>
+                        <h4><b>Total Seats : </b></h4>
+                        <h5><%= event_details[i].total_seats %> </h5>
+                        <h4><b>Avilable Seats : </b></h4>
+                        <h5><%= event_details[i].avilable_seats %> </h5>
+                    </div>
+                    <% } %>
+                </div>
+                <% if(coordinator[0]) { %>
+                <div class="row" id="coordinator-print">
+                    <div class="col-md-11">
+                        <h1>Coordinators</h1>
+                          <hr style="
+background:#eee;border:none;border-radius:50%
+;height:3px">
+                    </div>
+                </div>
+            </div>
+            <% for(var i in coordinator) { %>
+            <% if(i%2==0) { %>
+
+            <div class="row" class="coordinator-print">
+                <div class="col-md-11 jumbotron jmb-odd">
+                    <div class="row">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-11 coordinator1 ">
+                            <div class="row">
+                                <div class="col-sm-4 cn1">
+                                    <img data-src="<%= coordinator[i].photo %>" class=" lazy img img-circle" height="200" width="200" style="text-align: center">
+                                </div>
+                                <div class="col-sm-4 cn2">
+                                    <h2><%= coordinator[i].name %></h2>
+                                    <div class="coordinator-details">
+                                        <a href="mailto://<%= coordinator[i].email %>"><h4 id="email"><%= coordinator[i].email %></h4></a>
+                                        <h4><%= coordinator[i].mobile_no %></h4>
+
+                                        <% if(coordinator[i].course != "null") { %>
+                                        <h4><%= coordinator[i].course %> </h4>
+                                        <h4><%= coordinator[i].branch %></h4>
+                                        
+
+                                        <% if(coordinator[i].year>0) { %>
+
+                                        <% if(coordinator[i].year===1) { %>
+                                        <h4><%= coordinator[i].year %>st Year</h4>
+                                        <% } %>
+                                        <% if(coordinator[i].year===2) { %>
+                                        <h4><%= coordinator[i].year %>nd Year</h4>
+                                        <% } %>
+                                        <% if(coordinator[i].year===3) { %>
+                                        <h4><%= coordinator[i].year %>rd Year</h4>
+                                        <% } %>
+                                        <% if(coordinator[i].year===4) { %>
+                                        <h4><%= coordinator[i].year %>th Year</h4>
+                                        <% } %>
+
+                                        <% }} %>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } else {%>
+            <div class="row" class="coordinator-print">
+
+                <div class="col-md-11 jumbotron jmb-even">
+                    <div class="row">
+                        <div class="col-sm-11 coordinator2 ">
+                            <div class="row">
+                                <div class="col-sm-4 cn3">
+                                    <h2><%= coordinator[i].name %></h2>
+                                    <div class="coordinator-details">
+                                        <a href="mailto://<%= coordinator[i].email %>"><h4 id="email"><%= coordinator[i].email %></h4></a>
+                                        <h4><%= coordinator[i].mobile_no %></h4>
+
+                                        <% if(coordinator[i].course!="null") { %>
+                                        <h4><%= coordinator[i].course %> </h4>
+                                        <h4><%= coordinator[i].branch %></h4>
+                                    
+
+                                        <% if(coordinator[i].year>0) { %>
+
+                                        <% if(coordinator[i].year===1) { %>
+                                        <h4><%= coordinator[i].year %>st Year</h4>
+                                        <% } %>
+                                        <% if(coordinator[i].year===2) { %>
+                                        <h4><%= coordinator[i].year %>nd Year</h4>
+                                        <% } %>
+                                        <% if(coordinator[i].year===3) { %>
+                                        <h4><%= coordinator[i].year %>rd Year</h4>
+                                        <% } %>
+                                        <% if(coordinator[i].year===4) { %>
+                                        <h4><%= coordinator[i].year %>th Year</h4>
+                                        <% } %>
+
+                                        <% }} %>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4"></div>
+
+                                <div class="col-sm-4 cn4">
+                                    <img data-src="<%= coordinator[i].photo %>" class=" lazy img-circle" height="200" width="200">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                    </div>
+                </div>
+            </div>
+            <% }}} %>
+
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="jumbotron" style="text-align:center;"><h2>Frequently Asked Question</h2></div>
+                </div>
+            </div>
+
+
+            <div id="faqs">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <% for(let i in faqQuestions){ %>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" id="head<%= i %>"><%= faqQuestions[i].description %></div>
+                                <div class="panel-body " id="demo<%= i %>"><%= faqQuestions[i].reply %></div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="jumbotron" style="margin-top:2%;">
+
+                            <div class="page-title text-center">
+                                <h2>How can we help you?</h2>
+                            </div>
+
+                            <div class="form-sec">
+
+                                <form action="/eventFaq" method="post" role="form" class="contactForm">
+                                    <input name="event_id" value="<%= event_id %>" style="display: none">
+                                    <input name="id" value="<%= userDetails[0].id %>" style="display: none">
+                                    <div class="col-md-12 form-group">
+                                        <textarea class="form-control text-field-box" name="query" rows="5" placeholder="Your Query"></textarea>
+                                        <div class="validation"></div>
+
+                                        <button class="" id="contact-submit" type="submit"
+                                                style="margin-top:1%; margin-left:43%;border-radius:3px;" data-ripple="#002040">Submit Now
+                                        </button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% include footer.html %>
+    </div>
+    <% include commonFooterScriptElements.html %>
+
+    <script>
+
+        $(".message").each(function () {
+            alert("<%= message %>");
+        });
+    </script>
+    <script>
+        $(".queryMessage").each(function () {
+            alert("<%= queryMessage %>");
+        });
+
+    </script>
+    <script>
+        function myscrollfunction() {
+            $("#section01").css({"height":"0"});
+            $("#section-event-heading").css({"display":"none"});
+      
+           
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".panel-body").hide();
+        <% for(let i in faqQuestions){ %>
+                $("#head<%= i %>").click(function () {
+                    $("#demo<%= i %>").toggle(1000);
+                });
+            <% } %>
+        });
+    </script>
+    <script>
+        $(function() {
+            $("a[href*=#]").on("click", function(e) {
+                e.preventDefault();
+                $("html, body").animate({ scrollTop: $($(this).attr("href")).offset().top}, 500, "linear");
+            });
+        });
+    </script>
+    <script>
+        let ele = document.getElementsByClassName("panel-heading");
+        ele.onclick = function () {
+
+            this.classList.toggle("active");
+        }
+    </script>
+</div>
+<div id="for-tablet-mobile">
+
+    <div id="main">
+    
+        <button class="w3-button w3-xlarge w3-circle w3-teal w3-card-4 w3-display-bottomright plus-button" onclick="openNav()">+</button>
+        <div class="container" id="section02">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <% for(var i in event_details) { %>
+                    <h2 class="heading"><%= event_details[i].event_name %></h2>
+                    <% } %>
+                      <hr style="
+background:#eee;border:none;border-radius:50%
+;height:3px">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 jumbotron"  class="description-div">
+
+                    <div class="col-md-6">
+                        <% for(var i in event_details) { %>
+                        <h3><b>Description : </b></h3>
+                        <h4 class="desc"><%= event_details[i].description %></h4>
+                    </div>
+                    <div class="col-md-6 event-detail">
+                        <h4><b>Start Time</b></h4>
+                        <h5><%= event_details[i].start_date_time %></h5>
+                        <h4><b>End Time</b></h4>
+                        <h5><%= event_details[i].end_date_time %></h5>
+                        <h4><b>Place</b></h4>
+                        <h5><%= event_details[i].venue %></h5>
+                        <h4><b>Abacus Price</b></h4>
+                        <h5>Rs <%= event_details[i].abacus_price %></h5>
+                        <h4><b>Non Abacus price</b></h4>
+                        <h5>Rs <%= event_details[i].non_abacus_price %> </h5>
+                        <h4><b>Total Seats : </b></h4>
+                        <h5><%= event_details[i].total_seats %> </h5>
+                        <h4><b>Avilable Seats : </b></h4>
+                        <h5><%= event_details[i].avilable_seats %> </h5>
+                    </div>
+                    <% } %>
+                </div>
+                <% if(coordinator[0]) { %>
+                <div class="row" class="coordinator-print">
+                    <div class="col-md-12">
+                        <h1>Coordinators</h1>
+                          <hr style="
+background:#eee;border:none;border-radius:50%
+;height:3px">
+                    </div>
+                </div>
+                <% for(var i in coordinator) { %>
+                <% if(i%2==0) { %>
+                <div class="row" class="coordinator-print" >
+                    <div class="col-md-12 jumbotron jmb-odd">
+                        <div class="row">
+                            <div class="col-sm-1">
+                            </div>
+                            <div class="col-sm-11 coordinator1 ">
+                                <div class="row">
+                                    <div class="col-sm-4 cn1">
+                                        <img data-src="<%= coordinator[i].photo %>" class=" lazy img img-circle" height="200" width="200" style="text-align: center">
+                                    </div>
+                                    <div class="col-sm-4 cn2">
+                                        <h2><%= coordinator[i].name %></h2>
+                                        <div class="coordinator-details">
+                                            <a href="#"><h4 id="email"><%= coordinator[i].email %></h4></a>
+                                            <h4><%= coordinator[i].mobile_no %></h4>
+
+                                            <% if(coordinator[i].course!="none" || coordinator[i].branch!="none") { %>
+                                            <h4><%= coordinator[i].course %> </h4>
+                                            <h4><%= coordinator[i].branch %></h4>
+                                            <% } %>
+
+                                            <% if(coordinator[i].year>0) { %>
+
+                                            <% if(coordinator[i].year===1) { %>
+                                            <h4><%= coordinator[i].year %>st Year</h4>
+                                            <% } %>
+                                            <% if(coordinator[i].year===2) { %>
+                                            <h4><%= coordinator[i].year %>nd Year</h4>
+                                            <% } %>
+                                            <% if(coordinator[i].year===3) { %>
+                                            <h4><%= coordinator[i].year %>rd Year</h4>
+                                            <% } %>
+                                            <% if(coordinator[i].year===4) { %>
+                                            <h4><%= coordinator[i].year %>th Year</h4>
+                                            <% } %>
+
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } else {%>
+                <div class="row" class="coordinator-print">
+
+                    <div class="col-md-12 jumbotron jmb-even">
+                        <div class="row">
+                            <div class="col-sm-11 coordinator2 ">
+                                <div class="row">
+                                    <div class="col-sm-4 cn3">
+                                        <h2><%= coordinator[i].name %></h2>
+                                        <div class="coordinator-details">
+                                            <a href="#"><h4 id="email"><%= coordinator[i].email %></h4></a>
+                                            <h4><%= coordinator[i].mobile_no %></h4>
+
+                                            <% if(coordinator[i].course!="none" || coordinator[i].branch!="none") { %>
+                                            <h4><%= coordinator[i].course %> </h4>
+                                            <h4><%= coordinator[i].branch %></h4>
+                                            <% } %>
+
+                                            <% if(coordinator[i].year>0) { %>
+
+                                            <% if(coordinator[i].year===1) { %>
+                                            <h4><%= coordinator[i].year %>st Year</h4>
+                                            <% } %>
+                                            <% if(coordinator[i].year===2) { %>
+                                            <h4><%= coordinator[i].year %>nd Year</h4>
+                                            <% } %>
+                                            <% if(coordinator[i].year===3) { %>
+                                            <h4><%= coordinator[i].year %>rd Year</h4>
+                                            <% } %>
+                                            <% if(coordinator[i].year===4) { %>
+                                            <h4><%= coordinator[i].year %>th Year</h4>
+                                            <% } %>
+
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4"></div>
+
+                                    <div class="col-sm-4 cn4">
+                                        <img data-src="<%= coordinator[i].photo %>" class=" lazy img-circle" height="200" width="200">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+                </div>
+                <% }}} %>
+            </div>
+        </div>
+        
+        <div id="faqs">
+            <div class="container">
+                <div class="jumbotron" style="text-align:center;"><h2>Frequently Asked Question</h2></div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <% for(let i in faqQuestions){ %>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="head<%= i %>"><%= faqQuestions[i].description %></div>
+                            <div class="panel-body " id="demo<%= i %>"><%= faqQuestions[i].reply %></div>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="container jumbotron" style="margin-top:2%;">
+
+                <div class="page-title text-center">
+                    <h2>How can we help you?</h2>
+                </div>
+
+                <div class="form-sec">
+
+                    <form action="/eventFaq" method="post" role="form" class="contactForm">
+                        <input name="event_id" value="<%= event_id %>" style="display: none">
+                        <input name="id" value="<%= userDetails[0].id %>" style="display: none">
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control text-field-box" name="query" rows="5" placeholder="Your Query"></textarea>
+                            <div class="validation"></div>
+<br>
+                            <button style="margin-left: 30%;border-radius:3px;" id="contact-submit" type="submit" data-ripple="#002040">Submit Now
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% include footer.html %>
+    </div>
+    <% include commonFooterScriptElements.html %>
+
+    <script>
+
+        $(".message").each(function () {
+            alert("<%= message %>");
+        });
+    </script>
+    <script>
+        $(".queryMessage").each(function () {
+            alert("<%= queryMessage %>");
+        });
+
+    </script>
+    <script>
+        function myscrollfunction() {
+            $("#section01").css({"height":"0"});
+            $("#section-event-heading").css({"display":"none"});
+       
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".panel-body").hide();
+        <% for(let i in faqQuestions){ %>
+                $("#head<%= i %>").click(function () {
+                    $("#demo<%= i %>").toggle(1000);
+                });
+            <% } %>
+        });
+    </script>
+    <script>
+        $(function() {
+            $("a[href*=#]").on("click", function(e) {
+                e.preventDefault();
+                $("html, body").animate({ scrollTop: $($(this).attr("href")).offset().top}, 500, "linear");
+            });
+        });
+    </script>
+    <script>
+        function openNav() {
+
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.getElementById("main").style.padding = "16px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+            document.getElementById("main").style.padding = "0";
+            document.body.style.backgroundColor = "white"
+        }
+    </script>
+</div>
+<div class="container" style="z-index: 50000;position: relative;">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header w3-teal" style="padding: 0">
+                            <button type="button" id="register-close-model" class="w3-button w3-padding" data-dismiss="modal">&times;</button>
+                            <p class="modal-title" style="font-size: 40px;padding:15px;padding-bottom: 0">Registration</p>
+                        </div>
+                        <div class="modal-body">
+
+                            <form>
+                                <div class="form-group">
+                                    <label for="InputNameUser">Name</label>
+                                    <div style="text-align:center">
+                                        <input type="text" class="form-control" id="InputNameUser" value="<%= userDetails[0].name %>"
+                                               placeholder="Name" name="user_name" readonly></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="userEmail">Email</label>
+                                    <input type="email" class="form-control" id="userEmail" value="<%= userDetails[0].email %>"
+                                           placeholder="Email" name="email" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputName">Event</label>
+                                    <input type="text" class="form-control" id="InputName" value="<%= event_details[0].event_name%>" aria-describedby="emailHelp"
+                                           placeholder="Event Name" name="event_name" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vanuedetails">Venue</label>
+                                    <input type="text" class="form-control" id="vanuedetails" value="<%= event_details[0].venue%>" placeholder="enter vanue"
+                                           name="vanue" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="start_date_time">Timing</label>
+                                    <input class="form-control"  id="start_date_time" value="<%= event_details[0].start_date_time%>"
+                                           placeholder="date and time" name="start_date_time" readonly>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="end_date_time">End Time</label>
+                                    <input class="form-control" id="end_date_time" value="<%= event_details[0].end_date_time%>"
+                                           placeholder="date and time" name="end_date_time" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="abprice">Abacus Price</label>
+                                    <input class="form-control" type="number" id="abprice" value="<%= event_details[0].abacus_price%>" placeholder="abacus price"
+                                           name="abacus_price" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nabprice"> Non Abacus Price</label>
+                                    <input class="form-control" type="number" id="nabprice" value="<%= event_details[0].non_abacus_price%>" placeholder="non abacus price"
+                                           name="non_abacus_price" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="club_detail">Club name</label>
+                                    <input class="form-control" type="text" id="club_detail" value="<%= clubname_details[0].clubname %>" placeholder="club"
+                                           name="clubname" readonly>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer w3-teal">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <button class="btn btn-success" ><a href="/register/<%= event_id %>" style="text-decoration: none;color: white">Register</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script type="text/javascript">
+    if(window.outerWidth>968){
+		
+		 $('').appendTo("body");
+        document.getElementById("for-tablet-mobile").style.display="none";
+    }
+    else{
+        document.getElementById("for-desktop").style.display="none";
+    }
+</script>
+
+
+<script type="text/javascript">
+	
+window.onscroll = function (e) {  
+	if($("#section01").height()>150){
+		 $("#section01").css({"height":"0"});
+		      $("#section-event-heading").css({"display":"none"});
+	}
+    else if($(document).scrollTop()==0){
+	
+        $("#section01").css({"height":"100%"});
+        
+        $("#section-event-heading").css({"display":"block"});
+    
+    }
+} 
+</script>
+
+</body>
+<script src="/static/scripts/jspdf.debug.js"></script>
+<script src="/static/scripts/jspdf.min.js"></script>
+<script type="text/javascript">
+    function getDataUri(url, callback) {
+    var image = new Image();
+
+    image.onload = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = this.naturalWidth; // or "width" if you want a special/scaled size
+        canvas.height = this.naturalHeight; // or "height" if you want a special/scaled size
+
+        canvas.getContext("2d").drawImage(this, 0, 0);
+
+        // Get raw image data
+        callback(canvas.toDataURL("image/png").replace(/^data:image\/(jpg);base64,/, ""));
+
+        // ... or get as Data URI
+        callback(canvas.toDataURL("image/png"));
+    };
+
+    image.src = url;
+}
+    function generatePdf(){
+ 
+    getDataUri("<%= event_details[0].event_photo %>", function(dataUri) {
+    var doc = new jsPDF("p", "mm", "a4");
+    var width = doc.internal.pageSize.width;    
+    var height = doc.internal.pageSize.height;
+    doc.addImage(dataUri, "JPG", 0, 0, width,height);
+    doc.addPage();
+    doc.setFontSize(40)
+    doc.setTextColor(100,100,100);
+    doc.text(10, 25, "<%= event_details[0].event_name %>");
+    doc.setDrawColor(152,152,152);
+    doc.line(10, 30, 200, 29);
+
+    doc.setFillColor(245,245,245);
+    doc.rect(10, 40, 190, 250, "F");
+
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(18)
+
+    doc.text(14, 50,  "Start Time");
+    doc.text(14, 70,  "End Time");
+    doc.text(14, 90,  "Place");
+    doc.text(14, 110, "Abacus Price");
+    doc.text(14, 130, "Non Abacus price");
+    doc.text(14, 150, "Total Seats :");
+    doc.text(14, 170, "Avilable Seats :");
+
+    doc.setTextColor(100,100,100);
+    doc.setFontSize(14)
+
+    doc.text(14, 60,  "<%= event_details[0].start_date_time %>");
+    doc.text(14, 80,  "<%= event_details[0].end_date_time %>");
+    doc.text(14, 100, "<%= event_details[0].venue %>");
+    doc.text(14, 120, "<%= event_details[0].abacus_price %>");
+    doc.text(14, 140, "<%= event_details[0].non_abacus_price %>");
+    doc.text(14, 160, "<%= event_details[0].total_seats %>");
+    doc.text(14, 180, "<%= event_details[0].avilable_seats %>");
+
+    doc.addPage();
+    doc.setFontSize(40)
+    doc.text(10, 25, "Coordinators");
+    doc.setDrawColor(152,152,152);
+    doc.line(10, 30, 200, 29);
+
+    let y = 40, y1=50, y2=60, y3=70, y4=80, y5=90, y6=100 ;    
+
+    <% for(let i in coordinator){ %>
+
+        doc.setFillColor(245,245,245);
+        doc.rect(10, y, 190, 70, "F");
+        y += 80;
+
+        doc.setTextColor(0,0,0);
+        doc.setFontSize(18)
+        doc.text(14, y1, "<%= coordinator[i].name %>");
+        y1 += 80;
+
+        doc.setFontSize(14)
+        doc.setTextColor(100,100,100);
+        doc.text(14, y2, "<%= coordinator[i].email %>");
+        y2 += 80;
+        doc.text(14, y3, "<%= coordinator[i].mobile_no %>");
+        y3 += 80;
+        <% if(coordinator[i].course != "null") { %>
+        doc.text(14, y4, "<%= coordinator[i].course %>");
+        y4 += 80;
+        doc.text(14, y5, "<%= coordinator[i].branch %>");
+        y5 += 80;
+        doc.text(14, y6, "<%= coordinator[i].year %>");
+        y6 += 80;
+        <% } %>
+    <% } %>
+
+
+    doc.autoPrint();
+    doc.save("Report.pdf");
+});
+}
+</script>
+
+</html>

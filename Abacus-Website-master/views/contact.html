@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ABACUS | Contact Us</title>
+    <meta name="description" content="Contact us if you want help or give us any suggestion so that we can provide you better services.">
+	<meta name="keywords" content="abacus,abacus gla contact,gla contact,gla university contact,abacus society contact,abacus computer contact,glams contact">
+    
+    <% include commonHeadElements.html %>
+    <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css">
+   <style>
+@font-face {
+    font-family: "Futura Light";
+    src: url('/static/styles/core/FuturaBT_Light.otf');
+}
+html,body,p,button,h1,h2,h3,h4,h5,a {
+    font-family: "Futura Light", "Open Sans", sans-serif;
+}
+body{overflow:inherit}
+
+.mybackcon{
+    height: 300px!important;
+    background-color: rgba(255,255,255,0.5);
+    background: url("/static/images/contactus1.jpg")  ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    width: 100%;
+    }
+
+.contact {
+    padding: 101px 7px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .contact {
+        padding: 30px 0 80px;
+        text-align: center;
+    }
+
+
+}
+.contact .input-group {
+    
+    margin-bottom: 25px;
+}
+
+.contact .form-control {
+    
+    border-radius: 0 !important;
+}
+
+.contact span {
+    
+    border-radius: 0 !important;
+}
+
+.contact .btn {
+    
+    border-radius: 3px;
+    width: 100%;
+    font-size: 20px;
+    color: #000;
+
+}
+</style>
+</head>
+<body>
+<% include navigation_bar.html %>
+<form method="post" action="/contactMail">
+    <div id="contact" class="contact" >
+        <div class="container">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 mybackcon">
+                    </div>
+                </div>
+                <br>
+<% if(errorMessage){ %>
+                <p style="color: red;"><%= errorMessage %></p>
+                <%}%>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="input-group input-group-lg wow fadeInUp" data-wow-delay="0.2s">
+                    <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-user"
+                                                                          aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" aria-describedby="sizing-addon1" placeholder="Full Name"
+                                   name="name" required>
+                        </div>
+                        <div class="input-group input-group-lg wow fadeInUp" data-wow-delay="0.4s" >
+                        <span class="input-group-addon" id="sizing-addon1" ><i class="fa fa-envelope"
+                                                                              aria-hidden="true" ></i></span>
+                            <input type="email" class="form-control" aria-describedby="sizing-addon1"
+                                   placeholder="Email Address"
+                                   name="email" required >
+                        </div>
+                        <div class="input-group input-group-lg wow fadeInUp" data-wow-delay="0.6s" >
+                    <span class="input-group-addon" id="sizing-addon1"><i class="fa fa-phone"
+                                                                          aria-hidden="true"></i></span>
+                            <input type="number" class="form-control" aria-describedby="sizing-addon1"
+                                   placeholder="Phone Number"
+                                   name="phone" maxlength="10" minlength="10" required >
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="input-group wow fadeInUp" data-wow-delay="0.8s">
+                            <textarea name="message" id="" cols="100" rows="5" class="form-control" placeholder="Write Here..." required></textarea>
+                        </div>
+
+                        <button class="btn btn-info btn-lg" data-wow-delay="0.9s" type="submit" data-ripple="#002040">SEND <i class="fa fa-paper-plane-o ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<% include footer.html %>
+<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/node_modules/wow.js/dist/wow.min.js"></script>
+<script>
+
+    new WOW().init();
+</script>
+</body>
+</html>

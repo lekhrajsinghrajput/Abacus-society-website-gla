@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include commonHeadElements.html %>
+    <title>Registered users</title>
+    <style>
+        body, html {height: 100%;width: 100%}
+        .userImg{
+            max-height: 50px;
+            min-height: 50px;
+            max-width: 50px;
+            min-width: 50px;
+        }
+    </style>
+</head>
+<body>
+<% include navigation_bar.html %>
+<p style="margin-top: 12%;margin-left: 3%;font-size: 40px">Registered Users in <%= event_name[0].event_name %></p>
+<hr>
+<div class="table-responsive">
+    <form action="/attendance" method="post">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>email</th>
+            <th>mobile_no</th>
+            <th>course</th>
+            <th>branch</th>
+            <th>year</th>
+            <th>gender</th>
+            <th>photo</th>
+            <th>Present</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(let i in user){ %>
+        <tr>
+            <td><%=user[i].name%></td>
+            <td><%=user[i].email%></td>
+            <td><%=user[i].mobile_no%></td>
+            <td><%=user[i].course%></td>
+            <td><%=user[i].branch%></td>
+            <td><%=user[i].year%></td>
+            <td><%=user[i].gender%></td>
+            <td><img class="img img-circle userImg" src="<%=user[i].photo%>"></td>
+            <td>
+                <input type="checkbox" name="userId"
+                       value="<%= user[i].id %>">
+            </td>
+        </tr>
+        <%}%>
+        </tbody>
+    </table>
+        <input name="eventid" value="<%= eventid %>" style="display: none">
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

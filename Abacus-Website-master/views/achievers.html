@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Achievers</title>
+    <% include commonHeadElements.html %>
+</head>
+<body>
+<%  include navigation_bar.html %>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <h1 style="margin-left: 5%">Add Achiever</h1>
+        <form method="post" action="/addAchievers" enctype="multipart/form-data" style="text-align: left;margin-left: 5%">
+
+            <label for="image">Achiever Photo : </label>
+            <input id="image" type="file" name="images" accept="image/*">
+
+            <label for="name">Achiever Name : </label>
+            <input id="name" name="name">
+
+            <label for="description">Achiever Description : </label>
+            <input id="description" name="description">
+
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</div>
+<br><br>
+<h1 style="margin-left: 5%">Update Achievers</h1>
+<br>
+<br>
+<form action="/updateAchievers" method="post">
+    <% for(let i in achievers){ %>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" style="text-align: center;">
+            <img class="img img-circle" src="<%= achievers[i].photo %>" width="300" height="300" style="border: 2px solid black">
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <h3><%= achievers[i].name %></h3>
+        </div>
+        <div class="col-sm-3 col-md-3">
+            <p><%= achievers[i].description %></p>
+            <input class="single-checkbox" type="checkbox" name="id" value="<%= achievers[i].id %>">
+        </div>
+    </div>
+    <br>
+    <% } %>
+    <button type="submit" class="btn btn-info" style="float: right;margin-right: 20%">Submit</button>
+</form>
+<br><br>
+<% include footer.html %>
+<% include commonFooterScriptElements.html %>
+<script>
+    $('.single-checkbox').on('change', function() {
+        if($('.single-checkbox:checked').length > 4) {
+            this.checked = false;
+        }
+    });
+</script>
+</body>
+</html>

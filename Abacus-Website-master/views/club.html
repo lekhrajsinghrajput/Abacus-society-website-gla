@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clubs</title>
+    <% include commonHeadElements.html %>
+</head>
+<body>
+<%  include navigation_bar.html %>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <h1 style="margin-left: 5%">Add Clubs</h1>
+        <form method="post" action="/addClub" enctype="multipart/form-data" style="text-align: left;margin-left: 5%">
+
+            <label for="image">Club poster : </label>
+            <input id="image" type="file" name="images" accept="image/*" required>
+
+            <label for="name">Club name : </label>
+            <input id="name" type="text" name="clubname" style="text-transform: capitalize;" required>
+
+            <label for="description">Club Description : </label>
+            <input id="description" type="text"  name="description" style="text-transform: capitalize;" required>
+
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+    </div>
+</div>
+<br><br>
+<h1 style="margin-left: 5%">Delete Club</h1>
+<br>
+<br>
+
+    <% for(let i in club){ %>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-6" style="text-align: center;">
+            <img class="img" src="<%= club[i].photo %>" width="300" height="300" style="border: 2px solid black">
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <p style="font-size: 30px"><%= club[i].clubname %></p>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <p><%= club[i].description %></p>
+        </div>
+            <form action="/deleteClub" method="post">
+
+
+        <div class="col-sm-2 col-md-2">
+            <button type="submit" name="clubid" value="<%= club[i].clubid %>" class="btn btn-info" style="float: right;margin-right: 20%">Delete</button>
+        </div>
+    </div>
+
+
+</form>
+    <% } %>
+
+
+<br><br>
+<% include footer.html %>
+<% include commonFooterScriptElements.html %>
+</body>
+</html>
